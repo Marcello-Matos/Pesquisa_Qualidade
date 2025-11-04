@@ -420,9 +420,10 @@
         }
         
         /* ------------------------------------------- */
-        /* ESTILO ESPECIAL PARA O CARD DE COMPETÊNCIAS */
+        /* ESTILO ESPECIAL PARA OS CARDS COM COR IGUAL */
         /* ------------------------------------------- */
-        .menu-card.competencias-card {
+        .menu-card.competencias-card,
+        .menu-card.configuracao-setor-card {
             background: linear-gradient(135deg, 
                 rgba(28, 11, 140, 0.7) 0%, 
                 rgba(29, 4, 191, 0.7) 50%, 
@@ -436,7 +437,8 @@
             overflow: hidden;
         }
 
-        .menu-card.competencias-card::before {
+        .menu-card.competencias-card::before,
+        .menu-card.configuracao-setor-card::before {
             content: '';
             position: absolute;
             top: 0;
@@ -451,76 +453,8 @@
             z-index: 1;
         }
 
-        /* ESTILO ESPECIAL PARA O ÍCONE DO CARD DE COMPETÊNCIAS - MESMA COR DO CARD DE CONFIGURAÇÃO */
-        .menu-card.competencias-card .menu-icon {
-            background: linear-gradient(135deg, 
-                #ff6b6b 0%, 
-                #ff4081 50%, 
-                #f50057 100%);
-            box-shadow: 
-                0 5px 15px rgba(0, 0, 0, 0.4),
-                0 0 15px rgba(255, 107, 107, 0.6);
-            position: relative;
-            z-index: 2;
-        }
-
-        .menu-card.competencias-card h3,
-        .menu-card.competencias-card p {
-            position: relative;
-            z-index: 2;
-        }
-
-        .menu-card.competencias-card:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 
-                0 15px 40px rgba(201, 189, 242, 0.5),
-                0 0 0 2px rgba(201, 189, 242, 0.5),
-                inset 0 0 30px rgba(201, 189, 242, 0.3);
-            background: linear-gradient(135deg, 
-                rgba(28, 11, 140, 0.8) 0%, 
-                rgba(29, 4, 191, 0.8) 50%, 
-                rgba(33, 4, 217, 0.8) 100%);
-        }
-
-        .menu-card.competencias-card:hover .menu-icon {
-            transform: scale(1.15) rotate(8deg);
-            box-shadow: 
-                0 0 25px rgba(0, 0, 0, 0.6),
-                0 0 20px rgba(255, 107, 107, 0.8);
-        }
-
-        /* ------------------------------------------- */
-        /* ESTILO ESPECIAL PARA O CARD DE CONFIGURAÇÃO DO SETOR */
-        /* ------------------------------------------- */
-        .menu-card.configuracao-setor-card {
-            background: linear-gradient(135deg, 
-                rgba(255, 107, 107, 0.7) 0%, 
-                rgba(255, 64, 129, 0.7) 50%, 
-                rgba(245, 0, 87, 0.7) 100%);
-            border: 2px solid #ff6b6b;
-            box-shadow: 
-                0 8px 30px rgba(0, 0, 0, 0.6),
-                0 0 0 1px rgba(255, 107, 107, 0.3),
-                inset 0 0 20px rgba(255, 107, 107, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .menu-card.configuracao-setor-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                linear-gradient(45deg, transparent 45%, rgba(255, 107, 107, 0.1) 50%, transparent 55%),
-                linear-gradient(-45deg, transparent 45%, rgba(255, 107, 107, 0.1) 50%, transparent 55%);
-            background-size: 20px 20px;
-            animation: gridMove 3s linear infinite;
-            z-index: 1;
-        }
-
+        /* ESTILO ESPECIAL PARA OS ÍCONES - MESMA COR ROSA */
+        .menu-card.competencias-card .menu-icon,
         .menu-card.configuracao-setor-card .menu-icon {
             background: linear-gradient(135deg, 
                 #ff6b6b 0%, 
@@ -533,24 +467,28 @@
             z-index: 2;
         }
 
+        .menu-card.competencias-card h3,
+        .menu-card.competencias-card p,
         .menu-card.configuracao-setor-card h3,
         .menu-card.configuracao-setor-card p {
             position: relative;
             z-index: 2;
         }
 
+        .menu-card.competencias-card:hover,
         .menu-card.configuracao-setor-card:hover {
             transform: translateY(-10px) scale(1.03);
             box-shadow: 
-                0 15px 40px rgba(255, 107, 107, 0.5),
-                0 0 0 2px rgba(255, 107, 107, 0.5),
-                inset 0 0 30px rgba(255, 107, 107, 0.3);
+                0 15px 40px rgba(201, 189, 242, 0.5),
+                0 0 0 2px rgba(201, 189, 242, 0.5),
+                inset 0 0 30px rgba(201, 189, 242, 0.3);
             background: linear-gradient(135deg, 
-                rgba(255, 107, 107, 0.8) 0%, 
-                rgba(255, 64, 129, 0.8) 50%, 
-                rgba(245, 0, 87, 0.8) 100%);
+                rgba(28, 11, 140, 0.8) 0%, 
+                rgba(29, 4, 191, 0.8) 50%, 
+                rgba(33, 4, 217, 0.8) 100%);
         }
 
+        .menu-card.competencias-card:hover .menu-icon,
         .menu-card.configuracao-setor-card:hover .menu-icon {
             transform: scale(1.15) rotate(8deg);
             box-shadow: 
@@ -568,19 +506,7 @@
         }
 
         /* Indicador visual de profundidade */
-        .menu-card.competencias-card::after {
-            content: '';
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            right: 10px;
-            bottom: 10px;
-            border: 1px solid rgba(201, 189, 242, 0.3);
-            border-radius: 12px;
-            pointer-events: none;
-            z-index: 1;
-        }
-
+        .menu-card.competencias-card::after,
         .menu-card.configuracao-setor-card::after {
             content: '';
             position: absolute;
@@ -588,7 +514,7 @@
             left: 10px;
             right: 10px;
             bottom: 10px;
-            border: 1px solid rgba(255, 107, 107, 0.3);
+            border: 1px solid rgba(201, 189, 242, 0.3);
             border-radius: 12px;
             pointer-events: none;
             z-index: 1;
@@ -802,7 +728,7 @@
                 <p>Defina os destinatários das avaliações com critérios personalizados</p>
             </div>
 
-            <!-- Avaliação por Perfil - CARD ESPECIAL COM FUNDO DIFERENTE -->
+            <!-- Competências - CARD ESPECIAL -->
             <div class="menu-card competencias-card" onclick="window.location.href='competencias.html'">
                 <div class="menu-icon icon-avaliar">
                     <i class="fas fa-user-edit"></i>
@@ -811,7 +737,7 @@
                 <p>Realize avaliações como avaliador com interface otimizada</p>
             </div>
 
-            <!-- Configurações - CARD ESPECIAL COM COR DIFERENTE -->
+            <!-- Configuração do Setor - CARD ESPECIAL COM MESMA COR DO COMPETÊNCIAS -->
             <div class="menu-card configuracao-setor-card" onclick="navigateTo('configuracao-setor')">
                 <div class="menu-icon icon-configuracao">
                     <i class="fas fa-cogs"></i>
