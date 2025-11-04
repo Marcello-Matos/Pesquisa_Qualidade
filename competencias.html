@@ -208,6 +208,10 @@
             width: 100%;
             position: relative;
             z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: calc(100vh - 200px);
         }
         
         .page-title {
@@ -252,14 +256,17 @@
         /* ------------------------------------------- */
         .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
         }
         
         .menu-card {
             background: var(--dark-surface);
             border-radius: 16px;
-            padding: 30px 25px;
+            padding: 40px 30px;
             text-align: center;
             box-shadow: var(--card-shadow);
             transition: all 0.4s ease;
@@ -292,14 +299,14 @@
         }
         
         .menu-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: 20px;
+            width: 100px;
+            height: 100px;
+            border-radius: 25px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 25px;
-            font-size: 2.2rem;
+            font-size: 2.8rem;
             color: white;
             transition: all 0.4s ease;
             position: relative;
@@ -420,181 +427,6 @@
         }
         
         /* ------------------------------------------- */
-        /* ESTILO ESPECIAL PARA O CARD DE COMPETÊNCIAS */
-        /* ------------------------------------------- */
-        .menu-card.competencias-card {
-            background: linear-gradient(135deg, 
-                rgba(28, 11, 140, 0.7) 0%, 
-                rgba(29, 4, 191, 0.7) 50%, 
-                rgba(33, 4, 217, 0.7) 100%);
-            border: 2px solid var(--roxo-claro);
-            box-shadow: 
-                0 8px 30px rgba(0, 0, 0, 0.6),
-                0 0 0 1px rgba(201, 189, 242, 0.3),
-                inset 0 0 20px rgba(201, 189, 242, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .menu-card.competencias-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                linear-gradient(45deg, transparent 45%, rgba(201, 189, 242, 0.1) 50%, transparent 55%),
-                linear-gradient(-45deg, transparent 45%, rgba(201, 189, 242, 0.1) 50%, transparent 55%);
-            background-size: 20px 20px;
-            animation: gridMove 3s linear infinite;
-            z-index: 1;
-        }
-
-        /* ESTILO ESPECIAL PARA O ÍCONE DO CARD DE COMPETÊNCIAS - MESMA COR DO CARD DE CONFIGURAÇÃO */
-        .menu-card.competencias-card .menu-icon {
-            background: linear-gradient(135deg, 
-                #ff6b6b 0%, 
-                #ff4081 50%, 
-                #f50057 100%);
-            box-shadow: 
-                0 5px 15px rgba(0, 0, 0, 0.4),
-                0 0 15px rgba(255, 107, 107, 0.6);
-            position: relative;
-            z-index: 2;
-        }
-
-        .menu-card.competencias-card h3,
-        .menu-card.competencias-card p {
-            position: relative;
-            z-index: 2;
-        }
-
-        .menu-card.competencias-card:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 
-                0 15px 40px rgba(201, 189, 242, 0.5),
-                0 0 0 2px rgba(201, 189, 242, 0.5),
-                inset 0 0 30px rgba(201, 189, 242, 0.3);
-            background: linear-gradient(135deg, 
-                rgba(28, 11, 140, 0.8) 0%, 
-                rgba(29, 4, 191, 0.8) 50%, 
-                rgba(33, 4, 217, 0.8) 100%);
-        }
-
-        .menu-card.competencias-card:hover .menu-icon {
-            transform: scale(1.15) rotate(8deg);
-            box-shadow: 
-                0 0 25px rgba(0, 0, 0, 0.6),
-                0 0 20px rgba(255, 107, 107, 0.8);
-        }
-
-        /* ------------------------------------------- */
-        /* ESTILO ESPECIAL PARA O CARD DE CONFIGURAÇÃO DO SETOR */
-        /* ------------------------------------------- */
-        .menu-card.configuracao-setor-card {
-            background: linear-gradient(135deg, 
-                rgba(255, 107, 107, 0.7) 0%, 
-                rgba(255, 64, 129, 0.7) 50%, 
-                rgba(245, 0, 87, 0.7) 100%);
-            border: 2px solid #ff6b6b;
-            box-shadow: 
-                0 8px 30px rgba(0, 0, 0, 0.6),
-                0 0 0 1px rgba(255, 107, 107, 0.3),
-                inset 0 0 20px rgba(255, 107, 107, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .menu-card.configuracao-setor-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                linear-gradient(45deg, transparent 45%, rgba(255, 107, 107, 0.1) 50%, transparent 55%),
-                linear-gradient(-45deg, transparent 45%, rgba(255, 107, 107, 0.1) 50%, transparent 55%);
-            background-size: 20px 20px;
-            animation: gridMove 3s linear infinite;
-            z-index: 1;
-        }
-
-        .menu-card.configuracao-setor-card .menu-icon {
-            background: linear-gradient(135deg, 
-                #ff6b6b 0%, 
-                #ff4081 50%, 
-                #f50057 100%);
-            box-shadow: 
-                0 5px 15px rgba(0, 0, 0, 0.4),
-                0 0 15px rgba(255, 107, 107, 0.6);
-            position: relative;
-            z-index: 2;
-        }
-
-        .menu-card.configuracao-setor-card h3,
-        .menu-card.configuracao-setor-card p {
-            position: relative;
-            z-index: 2;
-        }
-
-        .menu-card.configuracao-setor-card:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 
-                0 15px 40px rgba(255, 107, 107, 0.5),
-                0 0 0 2px rgba(255, 107, 107, 0.5),
-                inset 0 0 30px rgba(255, 107, 107, 0.3);
-            background: linear-gradient(135deg, 
-                rgba(255, 107, 107, 0.8) 0%, 
-                rgba(255, 64, 129, 0.8) 50%, 
-                rgba(245, 0, 87, 0.8) 100%);
-        }
-
-        .menu-card.configuracao-setor-card:hover .menu-icon {
-            transform: scale(1.15) rotate(8deg);
-            box-shadow: 
-                0 0 25px rgba(0, 0, 0, 0.6),
-                0 0 20px rgba(255, 107, 107, 0.8);
-        }
-
-        @keyframes gridMove {
-            0% {
-                background-position: 0 0;
-            }
-            100% {
-                background-position: 20px 20px;
-            }
-        }
-
-        /* Indicador visual de profundidade */
-        .menu-card.competencias-card::after {
-            content: '';
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            right: 10px;
-            bottom: 10px;
-            border: 1px solid rgba(201, 189, 242, 0.3);
-            border-radius: 12px;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .menu-card.configuracao-setor-card::after {
-            content: '';
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            right: 10px;
-            bottom: 10px;
-            border: 1px solid rgba(255, 107, 107, 0.3);
-            border-radius: 12px;
-            pointer-events: none;
-            z-index: 1;
-        }
-        
-        /* ------------------------------------------- */
         /* FOOTER - DESIGN MODERNO */
         /* ------------------------------------------- */
         .footer {
@@ -692,7 +524,7 @@
         /* ------------------------------------------- */
         @media (max-width: 1200px) {
             .menu-grid {
-                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
                 gap: 25px;
             }
         }
@@ -710,8 +542,9 @@
             }
             
             .menu-grid {
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
                 gap: 20px;
+                max-width: 600px;
             }
             
             .page-title h2 {
@@ -721,11 +554,18 @@
             .page-title p {
                 font-size: 1.1rem;
             }
+
+            .menu-icon {
+                width: 80px;
+                height: 80px;
+                font-size: 2.2rem;
+            }
         }
         
         @media (max-width: 480px) {
             .menu-grid {
                 grid-template-columns: 1fr;
+                max-width: 350px;
             }
             
             .page-title h2 {
@@ -738,6 +578,16 @@
 
             .main-content {
                 padding: 30px 15px;
+            }
+
+            .menu-card {
+                padding: 30px 20px;
+            }
+
+            .menu-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 2rem;
             }
         }
 
@@ -773,120 +623,12 @@
     <!-- Conteúdo Principal -->
     <main class="main-content">
         <div class="page-title">
-            <h2>Menu de Avaliações de RH</h2>
+            <h2>Menu de Competências</h2>
             <p>Selecione uma das opções abaixo para acessar as funcionalidades do sistema</p>
         </div>
 
         <div class="menu-grid">
-            <div class="menu-card" onclick="window.location.href='avaliadores.html'">
-                <div class="menu-icon icon-avaliadores">
-                    <i class="fas fa-user-check"></i>
-                </div>
-                <h3>Avaliadores</h3>
-                <p>Gerencie os avaliadores do sistema com permissões avançadas</p>
-            </div>
-
-            <div class="menu-card" onclick="window.location.href='gestores.html'">
-                <div class="menu-icon icon-gestores">
-                    <i class="fas fa-user-tie"></i>
-                </div>
-                <h3>Gestores</h3>
-                <p>Configure e gerencie os gestores da organização hierarquicamente</p>
-            </div>
-
-            <div class="menu-card" onclick="window.location.href='destinatarios.html'">
-                <div class="menu-icon icon-destinatarios">
-                    <i class="fas fa-users"></i>
-                </div>
-                <h3>Destinatários</h3>
-                <p>Defina os destinatários das avaliações com critérios personalizados</p>
-            </div>
-
-            <!-- Avaliação por Perfil - CARD ESPECIAL COM FUNDO DIFERENTE -->
-            <div class="menu-card competencias-card" onclick="window.location.href='competencias.html'">
-                <div class="menu-icon icon-avaliar">
-                    <i class="fas fa-user-edit"></i>
-                </div>
-                <h3>Competências</h3>
-                <p>Realize avaliações como avaliador com interface otimizada</p>
-            </div>
-
-            <!-- Configurações - CARD ESPECIAL COM COR DIFERENTE -->
-            <div class="menu-card configuracao-setor-card" onclick="navigateTo('configuracao-setor')">
-                <div class="menu-icon icon-configuracao">
-                    <i class="fas fa-cogs"></i>
-                </div>
-                <h3>Configuração do Setor</h3>
-                <p>Configure os setores da organização com estrutura hierárquica</p>
-            </div>
-
-            <!-- Avaliação -->
-            <div class="menu-card" onclick="navigateTo('pesquisa-clima')">
-                <div class="menu-icon icon-pesquisa">
-                    <i class="fas fa-chart-pie"></i>
-                </div>
-                <h3>Pesquisa de Clima Organizacional</h3>
-                <p>Realize pesquisas de clima e satisfação no trabalho com análises avançadas</p>
-            </div>
-            
-            <div class="menu-card" onclick="navigateTo('questionarios-internos')">
-                <div class="menu-icon icon-questionario">
-                    <i class="fas fa-clipboard-list"></i>
-                </div>
-                <h3>Questionários Internos</h3>
-                <p>Crie e gerencie questionários personalizados para avaliações internas</p>
-            </div>
-            
-            <div class="menu-card" onclick="navigateTo('vigencia-avaliacoes')">
-                <div class="menu-icon icon-vigencia">
-                    <i class="fas fa-calendar-alt"></i>
-                </div>
-                <h3>Vigência Avaliações</h3>
-                <p>Controle os períodos de vigência das avaliações de forma inteligente</p>
-            </div>           
-            
-            <div class="menu-card" onclick="navigateTo('avaliar-gestor')">
-                <div class="menu-icon icon-avaliar">
-                    <i class="fas fa-user-cog"></i>
-                </div>
-                <h3>Avaliar - Gestor</h3>
-                <p>Realize avaliações como gestor com visão estratégica</p>
-            </div>
-            
-            <div class="menu-card" onclick="navigateTo('avaliar-rh')">
-                <div class="menu-icon icon-avaliar">
-                    <i class="fas fa-user-shield"></i>
-                </div>
-                <h3>Avaliar - RH</h3>
-                <p>Realize avaliações como profissional de RH com análises completas</p>
-            </div>
-            
-            <!-- Consultas e Resultados -->
-            <div class="menu-card" onclick="navigateTo('consulta-avaliacao')">
-                <div class="menu-icon icon-consulta">
-                    <i class="fas fa-search"></i>
-                </div>
-                <h3>Consulta - Avaliação</h3>
-                <p>Consulte avaliações realizadas com filtros avançados</p>
-            </div>
-
-            <div class="menu-card" onclick="window.location.href='consulta-responsaveis.html'">
-                <div class="menu-icon icon-competencias">
-                    <i class="fas fa-briefcase"></i>
-                </div>
-                <h3>Consulta - Responsáveis</h3>
-                <p>Relacione competências com funções de forma estratégica</p>
-            </div>
-            
-            <div class="menu-card" onclick="navigateTo('resultado-avaliacao')">
-                <div class="menu-icon icon-resultado">
-                    <i class="fas fa-chart-bar"></i>
-                </div>
-                <h3>Resultado - Avaliação</h3>
-                <p>Visualize resultados das avaliações com dashboards interativos</p>
-            </div>
-            
-            <!-- Competências e Tabelas -->
+              <!-- Competências e Tabelas -->
             <div class="menu-card" onclick="window.location.href='competencia.html'">
                 <div class="menu-icon icon-competencias">
                     <i class="fas fa-briefcase"></i>
@@ -901,49 +643,7 @@
                 </div>
                 <h3>Tabela - Competências</h3>
                 <p>Gerencie tabelas de competências com mapeamento completo</p>
-            </div>  
-
-            <!-- Cadastros -->
-            <div class="menu-card" onclick="navigateTo('responsavel')">
-                <div class="menu-icon icon-responsavel">
-                    <i class="fas fa-user-alt"></i>
-                </div>
-                <h3>Responsável</h3>
-                <p>Gerencie os responsáveis por setores/avaliações com hierarquia</p>
-            </div>
-            
-            <div class="menu-card" onclick="window.location.href='colaborador.html'">
-                <div class="menu-icon icon-colaborador">
-                    <i class="fas fa-user-friends"></i>
-                </div>
-                <h3>Colaborador</h3>
-                <p>Gerencie os colaboradores da organização com perfis detalhados</p>
-            </div>
-            
-            <div class="menu-card" onclick="window.location.href='setores.html'">
-                <div class="menu-icon icon-setor">
-                    <i class="fas fa-building"></i>
-                </div>
-                <h3>Consulta - Setores</h3>
-                <p>Gerencie os setores da organização com estrutura organizacional</p>
-            </div>
-            
-            <div class="menu-card" onclick="window.location.href='setores.html'">
-                <div class="menu-icon icon-turno">
-                    <i class="fas fa-clock"></i>
-                </div>
-                <h3>Consulta - Turno</h3>
-                <p>Configure os turnos de trabalho com escalas inteligentes</p>
-            </div>
-            
-            <!-- Relatórios -->
-            <div class="menu-card" onclick="navigateTo('resumo')">
-                <div class="menu-icon icon-resumo">
-                    <i class="fas fa-file-alt"></i>
-                </div>
-                <h3>Resumo</h3>
-                <p>Visualize resumos e relatórios do sistema com analytics avançados</p>
-            </div>
+            </div>           
         </div>
     </main>
 
@@ -985,8 +685,8 @@
         }
         
         function goBack() {
-            // Volta para a página anterior (index.php)
-            window.location.href = 'index.html';
+            // Volta para o menu.html
+            window.location.href = 'menu.html';
         }
 
         // Inicializar efeitos quando a página carregar
