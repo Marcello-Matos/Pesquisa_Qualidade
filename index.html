@@ -78,8 +78,8 @@
             justify-content: center;
             align-items: center;
             padding: 40px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
+            /* Removido max-width para permitir expansão horizontal */
+            margin: 0 auto; 
             width: 100%;
         }
         
@@ -106,9 +106,12 @@
             display: flex;
             justify-content: center;
             gap: 30px;
-            flex-wrap: wrap;
-            width: 100%;
-            max-width: 900px;
+            flex-wrap: nowrap; /* GARANTE: Ícones sempre na mesma linha */
+            
+            /* FORÇA O CONTAINER A TER A LARGURA TOTAL DOS ITENS */
+            width: max-content; 
+            /* Se a largura for menor que 100% da viewport, o min-width garante o preenchimento */
+            min-width: 100%; 
         }
         
         .nav-card {
@@ -116,6 +119,7 @@
             border-radius: 10px;
             padding: 30px;
             width: 250px;
+            flex-shrink: 0; /* IMPEDE que os cards encolham */
             text-align: center;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
@@ -163,6 +167,10 @@
             background: linear-gradient(135deg, #e74c3c, #c0392b);
         }
         
+        .card-pesquisa {
+             background: linear-gradient(135deg, #f39c12, #e67e22);
+        }
+
         /* Footer */
         .footer {
             background: #2c3e50;
@@ -173,7 +181,9 @@
         }
         
         /* Responsividade */
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) { 
+            /* Para telas que podem ser menores que o menu, forçamos a expansão */
+            
             .header-content {
                 flex-direction: column;
                 text-align: center;
@@ -183,14 +193,23 @@
                 margin-top: 15px;
             }
             
+            .main-content {
+                /* Permite que o main-content cresça junto com o nav-menu */
+                max-width: none;
+                /* Alinha o conteúdo à esquerda quando a rolagem horizontal aparecer (no body) */
+                align-items: flex-start; 
+            }
+            
             .nav-menu {
-                flex-direction: column;
-                align-items: center;
+                /* Usa o flex-start para manter o conteúdo à esquerda */
+                justify-content: flex-start; 
+                width: max-content; /* Mantém a largura baseada no conteúdo */
+                min-width: 100%;
             }
             
             .nav-card {
-                width: 100%;
-                max-width: 300px;
+                 min-width: 220px; 
+                 width: 220px; 
             }
             
             .welcome-section h2 {
@@ -201,7 +220,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <!-- Header -->
     <header class="header">
         <div class="header-content">
             <div class="logo">
@@ -216,7 +234,6 @@
         </div>
     </header>
 
-    <!-- Conteúdo Principal -->
     <main class="main-content">
         <section class="welcome-section">
             <h2>Bem-vindo ao Sistema KALPA QUESTION</h2>
@@ -249,16 +266,15 @@
             </div>
 
             <div class="nav-card" onclick="navigateTo('pesquisa.html')">
-                <div class="nav-icon card-admin">
-                    <i class="fas fa-cogs"></i>
+                <div class="nav-icon card-pesquisa">
+                    <i class="fas fa-search"></i>
                 </div>
                 <h3>Pesquisa</h3>
-                <p>Configure parâmetros do sistema, usuários e permissões de acesso</p>
+                <p>Realize consultas e gere relatórios detalhados sobre as avaliações</p>
             </div>
         </nav>
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
         <p>Sistema KalpaQuestion &copy; 2025 - Todos os direitos reservados</p>
     </footer> 
