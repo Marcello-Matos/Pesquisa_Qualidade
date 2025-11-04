@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - Sistema KALPA QUESTION</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ------------------------------------------- */
+        /* VARIÁVEIS E RESET MODERNO */
+        /* ------------------------------------------- */
+        :root {
+            --primary: #1a237e;
+            --primary-light: #303f9f;
+            --primary-dark: #000051;
+            --secondary: #00bcd4;
+            --secondary-light: #62efff;
+            --accent: #ff4081;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --error: #f44336;
+            --dark-bg: #0d1117;
+            --dark-surface: #161b22;
+            --dark-surface-light: #21262d;
+            --text-primary: #ffffff;
+            --text-secondary: #8b949e;
+            --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+            --hover-shadow: 0 15px 40px rgba(0, 188, 212, 0.3);
+            --glow-effect: 0 0 25px rgba(0, 188, 212, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: default;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', 'SF Pro Display', sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #0a0e17 50%, #151a25 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* ------------------------------------------- */
+        /* HEADER - DESIGN FUTURISTA */
+        /* ------------------------------------------- */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 20px 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 100;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff 0%, var(--secondary-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 188, 212, 0.3);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary-light) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .user-avatar:hover {
+            transform: scale(1.1);
+            box-shadow: var(--glow-effect);
+        }
+        
+        .back-button {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 12px 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .back-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .back-button:hover::before {
+            left: 100%;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .back-button i {
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .back-button:hover i {
+            transform: translateX(-3px);
+        }
+        
+        /* ------------------------------------------- */
+        /* CONTEÚDO PRINCIPAL - DESIGN PREMIUM */
+        /* ------------------------------------------- */
+        .main-content {
+            flex: 1;
+            padding: 40px 20px;
+            max-width: 1600px;
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .page-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .page-title h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            text-shadow: 0 0 30px rgba(0, 188, 212, 0.2);
+        }
+        
+        .page-title p {
+            color: var(--text-secondary);
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+            border-radius: 2px;
+        }
+        
+        /* ------------------------------------------- */
+        /* MENU DE NAVEGAÇÃO - DESIGN AVANÇADO */
+        /* ------------------------------------------- */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        
+        .menu-card {
+            background: var(--dark-surface);
+            border-radius: 16px;
+            padding: 30px 25px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .menu-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+        }
+        
+        .menu-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--hover-shadow);
+            border-color: rgba(0, 188, 212, 0.3);
+        }
+        
+        .menu-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            font-size: 2.2rem;
+            color: white;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .menu-card:hover .menu-icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .menu-card h3 {
+            font-size: 1.4rem;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .menu-card p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            flex-grow: 1;
+            position: relative;
+            z-index: 2;
+            line-height: 1.5;
+        }
+
+        /* Efeito de brilho no hover */
+        .menu-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 188, 212, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .menu-card:hover::after {
+            left: 100%;
+        }
+        
+        /* ------------------------------------------- */
+        /* CORES DOS ÍCONES - GRADIENTES MODERNOS */
+        /* ------------------------------------------- */
+        .icon-avaliacao {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .icon-pesquisa {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .icon-questionario {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        
+        .icon-vigencia {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+        
+        .icon-avaliadores {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+        
+        .icon-gestores {
+            background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+        }
+        
+        .icon-destinatarios {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+        
+        .icon-competencias {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+        }
+        
+        .icon-configuracao {
+            background: linear-gradient(135deg, #a8c0ff 0%, #3f2b96 100%);
+        }
+        
+        .icon-avaliar {
+            background: linear-gradient(135deg, #fdbb2d 0%, #22c1c3 100%);
+        }
+        
+        .icon-consulta {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+        
+        .icon-resultado {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+        }
+        
+        .icon-tabela {
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+        }
+        
+        .icon-responsavel {
+            background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
+        }
+        
+        .icon-colaborador {
+            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+        }
+        
+        .icon-setor {
+            background: linear-gradient(135deg, #fccb90 0%, #d57eeb 100%);
+        }
+        
+        .icon-turno {
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+        }
+        
+        .icon-resumo {
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+        }
+        
+        /* ------------------------------------------- */
+        /* FOOTER - DESIGN MODERNO */
+        /* ------------------------------------------- */
+        .footer {
+            background: var(--dark-surface);
+            color: var(--text-secondary);
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+        }
+        
+        /* ------------------------------------------- */
+        /* ANIMAÇÕES E EFEITOS ESPECIAIS */
+        /* ------------------------------------------- */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 0 5px rgba(0, 188, 212, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(0, 188, 212, 0.6);
+            }
+        }
+
+        .menu-card {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .menu-card:nth-child(odd) {
+            animation-delay: 0.1s;
+        }
+
+        .menu-card:nth-child(even) {
+            animation-delay: 0.2s;
+        }
+
+        .logo h1 {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Efeito de partículas */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--secondary);
+            border-radius: 50%;
+            animation: float 8s infinite linear;
+            opacity: 0.6;
+        }
+
+        /* ------------------------------------------- */
+        /* RESPONSIVIDADE AVANÇADA */
+        /* ------------------------------------------- */
+        @media (max-width: 1200px) {
+            .menu-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 25px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            .user-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .menu-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 20px;
+            }
+            
+            .page-title h2 {
+                font-size: 2.2rem;
+            }
+
+            .page-title p {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-title h2 {
+                font-size: 1.8rem;
+            }
+
+            .header {
+                padding: 15px 20px;
+            }
+
+            .main-content {
+                padding: 30px 15px;
+            }
+        }
+
+        /* Cursor personalizado para elementos interativos */
+        button, .menu-card {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Efeito de partículas -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <h1>Sistema KALPA QUESTION</h1>
+            </div>
+            <div class="user-info">
+                <div class="user-avatar">AD</div>
+                <div>
+                    <div style="font-weight: 600; font-size: 1.1rem;">Administrador</div>
+                    <div style="font-size: 0.9rem; opacity: 0.8;">Sistema Principal</div>
+                </div>
+                <button class="back-button" onclick="goBack()">
+                    <i class="fas fa-arrow-left"></i> Voltar
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+        <div class="page-title">
+            <h2>Menu de Avaliações de RH</h2>
+            <p>Selecione uma das opções abaixo para acessar as funcionalidades do sistema</p>
+        </div>
+
+        <div class="menu-grid">
+            <!-- Avaliação -->
+            <div class="menu-card" onclick="navigateTo('pesquisa-clima')">
+                <div class="menu-icon icon-pesquisa">
+                    <i class="fas fa-chart-pie"></i>
+                </div>
+                <h3>Pesquisa de Clima Organizacional</h3>
+                <p>Realize pesquisas de clima e satisfação no trabalho com análises avançadas</p>
+            </div>
+            
+            <div class="menu-card" onclick="navigateTo('questionarios-internos')">
+                <div class="menu-icon icon-questionario">
+                    <i class="fas fa-clipboard-list"></i>
+                </div>
+                <h3>Questionários Internos</h3>
+                <p>Crie e gerencie questionários personalizados para avaliações internas</p>
+            </div>
+            
+            <div class="menu-card" onclick="navigateTo('vigencia-avaliacoes')">
+                <div class="menu-icon icon-vigencia">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <h3>Vigência Avaliações</h3>
+                <p>Controle os períodos de vigência das avaliações de forma inteligente</p>
+            </div>
+            
+            <!-- Pessoas -->
+            <div class="menu-card" onclick="window.location.href='avaliadores.php'">
+                <div class="menu-icon icon-avaliadores">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <h3>Avaliadores</h3>
+                <p>Gerencie os avaliadores do sistema com permissões avançadas</p>
+            </div>
+
+            <div class="menu-card" onclick="window.location.href='gestores.php'">
+                <div class="menu-icon icon-gestores">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <h3>Gestores</h3>
+                <p>Configure e gerencie os gestores da organização hierarquicamente</p>
+            </div>
+
+            <div class="menu-card" onclick="window.location.href='destinatarios.php'">
+                <div class="menu-icon icon-destinatarios">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Destinatários</h3>
+                <p>Defina os destinatários das avaliações com critérios personalizados</p>
+            </div>
+            
+            <!-- Configurações -->
+            <div class="menu-card" onclick="navigateTo('configuracao-setor')">
+                <div class="menu-icon icon-configuracao">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <h3>Configuração do Setor</h3>
+                <p>Configure os setores da organização com estrutura hierárquica</p>
+            </div>
+            
+            <!-- Avaliação por Perfil -->
+            <div class="menu-card" onclick="navigateTo('avaliar-avaliador')">
+                <div class="menu-icon icon-avaliar">
+                    <i class="fas fa-user-edit"></i>
+                </div>
+                <h3>Avaliar - Avaliador</h3>
+                <p>Realize avaliações como avaliador com interface otimizada</p>
+            </div>
+            
+            <div class="menu-card" onclick="navigateTo('avaliar-gestor')">
+                <div class="menu-icon icon-avaliar">
+                    <i class="fas fa-user-cog"></i>
+                </div>
+                <h3>Avaliar - Gestor</h3>
+                <p>Realize avaliações como gestor com visão estratégica</p>
+            </div>
+            
+            <div class="menu-card" onclick="navigateTo('avaliar-rh')">
+                <div class="menu-icon icon-avaliar">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <h3>Avaliar - RH</h3>
+                <p>Realize avaliações como profissional de RH com análises completas</p>
+            </div>
+            
+            <!-- Consultas e Resultados -->
+            <div class="menu-card" onclick="navigateTo('consulta-avaliacao')">
+                <div class="menu-icon icon-consulta">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h3>Consulta - Avaliação</h3>
+                <p>Consulte avaliações realizadas com filtros avançados</p>
+            </div>
+
+            <div class="menu-card" onclick="window.location.href='consulta-responsaveis.php'">
+                <div class="menu-icon icon-competencias">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <h3>Consulta - Responsáveis</h3>
+                <p>Relacione competências com funções de forma estratégica</p>
+            </div>
+            
+            <div class="menu-card" onclick="navigateTo('resultado-avaliacao')">
+                <div class="menu-icon icon-resultado">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <h3>Resultado - Avaliação</h3>
+                <p>Visualize resultados das avaliações com dashboards interativos</p>
+            </div>
+            
+            <!-- Competências e Tabelas -->
+            <div class="menu-card" onclick="window.location.href='competencia.php'">
+                <div class="menu-icon icon-competencias">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <h3>Competência - Função</h3>
+                <p>Relacione competências com funções de forma estratégica</p>
+            </div> 
+            
+            <div class="menu-card" onclick="window.location.href='tabela-competencias.php'">
+                <div class="menu-icon icon-tabela">
+                    <i class="fas fa-clipboard-list"></i>
+                </div>
+                <h3>Tabela - Competências</h3>
+                <p>Gerencie tabelas de competências com mapeamento completo</p>
+            </div>  
+
+            <!-- Cadastros -->
+            <div class="menu-card" onclick="navigateTo('responsavel')">
+                <div class="menu-icon icon-responsavel">
+                    <i class="fas fa-user-alt"></i>
+                </div>
+                <h3>Responsável</h3>
+                <p>Gerencie os responsáveis por setores/avaliações com hierarquia</p>
+            </div>
+            
+            <div class="menu-card" onclick="window.location.href='colaborador.php'">
+                <div class="menu-icon icon-colaborador">
+                    <i class="fas fa-user-friends"></i>
+                </div>
+                <h3>Colaborador</h3>
+                <p>Gerencie os colaboradores da organização com perfis detalhados</p>
+            </div>
+            
+            <div class="menu-card" onclick="window.location.href='setores.php'">
+                <div class="menu-icon icon-setor">
+                    <i class="fas fa-building"></i>
+                </div>
+                <h3>Consulta Setores</h3>
+                <p>Gerencie os setores da organização com estrutura organizacional</p>
+            </div>
+            
+            <div class="menu-card" onclick="navigateTo('turno')">
+                <div class="menu-icon icon-turno">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h3>Turno</h3>
+                <p>Configure os turnos de trabalho com escalas inteligentes</p>
+            </div>
+            
+            <!-- Relatórios -->
+            <div class="menu-card" onclick="navigateTo('resumo')">
+                <div class="menu-icon icon-resumo">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <h3>Resumo</h3>
+                <p>Visualize resumos e relatórios do sistema com analytics avançados</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Sistema KALPA QUESTION &copy; 2024 - Todos os direitos reservados</p>
+        <p style="margin-top: 10px; font-size: 0.9rem; opacity: 0.7;">Sistema de Gestão de Avaliações de RH - Versão Premium</p>
+    </footer>
+
+    <script>
+        // Função para criar partículas
+        function criarParticulas() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 25; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (4 + Math.random() * 6) + 's';
+                particle.style.opacity = Math.random() * 0.5 + 0.2;
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        function navigateTo(section) {
+            // Efeito visual antes da navegação
+            const card = event.currentTarget;
+            card.style.transform = 'scale(0.95)';
+            card.style.boxShadow = '0 0 30px rgba(0, 188, 212, 0.8)';
+            
+            setTimeout(() => {
+                // Aqui você pode redirecionar para as páginas específicas
+                // Por enquanto, apenas mostra um alerta
+                alert(`Navegando para: ${section}`);
+                
+                // Exemplo de redirecionamento (descomente quando tiver as páginas):
+                // window.location.href = `${section}.php`;
+            }, 300);
+        }
+        
+        function goBack() {
+            // Volta para a página anterior (index.php)
+            window.location.href = 'index.php';
+        }
+
+        // Inicializar efeitos quando a página carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            criarParticulas();
+            
+            // Adicionar efeito de digitação ao título
+            const title = document.querySelector('.page-title h2');
+            const text = title.textContent;
+            title.textContent = '';
+            
+            let i = 0;
+            const typeWriter = () => {
+                if (i < text.length) {
+                    title.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 50);
+                }
+            };
+            
+            setTimeout(typeWriter, 1000);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Kalpa Question - Consulta Responsáveis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ------------------------------------------- */
+        /* VARIÁVEIS E RESET MODERNO */
+        /* ------------------------------------------- */
+        :root {
+            --primary: #1a237e;
+            --primary-light: #303f9f;
+            --primary-dark: #000051;
+            --secondary: #00bcd4;
+            --secondary-light: #62efff;
+            --secondary-dark: #008ba3;
+            --accent: #ff4081;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --error: #f44336;
+            --dark-bg: #0d1117;
+            --dark-surface: #161b22;
+            --dark-surface-light: #21262d;
+            --text-primary: #ffffff;
+            --text-secondary: #8b949e;
+            --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+            --hover-shadow: 0 10px 40px rgba(0, 188, 212, 0.3);
+            --glow-effect: 0 0 20px rgba(0, 188, 212, 0.5);
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.5s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: default;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', 'SF Pro Display', sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #0a0e17 50%, #151a25 100%);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Efeito de partículas futuristas */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--secondary);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+            }
+            50% {
+                transform: translateY(-20px) translateX(10px);
+            }
+            100% {
+                transform: translateY(0) translateX(0);
+            }
+        }
+
+        /* ------------------------------------------- */
+        /* 1. JANELA PRINCIPAL - DESIGN FUTURISTA */
+        /* ------------------------------------------- */
+        .window-container {
+            background: var(--dark-surface);
+            border-radius: 16px;
+            box-shadow: var(--card-shadow), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            width: 1200px;
+            height: 800px;
+            max-width: 95vw;
+            max-height: 95vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            animation: window-appear 0.5s ease-out;
+        }
+
+        @keyframes window-appear {
+            0% {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        /* Efeito de brilho sutil nas bordas */
+        .window-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+            z-index: 10;
+        }
+
+        /* Barra de Título - Design Moderno */
+        .window-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--text-primary);
+            padding: 16px 24px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            font-size: 16px;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .window-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .window-controls span {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .window-controls span:nth-child(1):hover,
+        .window-controls span:nth-child(2):hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .window-controls span:nth-child(3) {
+            background: var(--error);
+        }
+
+        .window-controls span:nth-child(3):hover {
+            background: #d32f2f;
+            transform: scale(1.1);
+        }
+
+        .window-content {
+            padding: 0;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--dark-surface-light);
+            overflow: hidden;
+        }
+        
+        /* ------------------------------------------- */
+        /* 2. TABELA DE DADOS - DESIGN AVANÇADO */
+        /* ------------------------------------------- */
+        .data-grid-container {
+            flex-grow: 1;
+            overflow: auto;
+            background: var(--dark-surface);
+            margin: 20px;
+            border-radius: 12px;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            min-width: 700px; /* Garante largura mínima para visualização da tabela completa */
+        }
+
+        .data-table thead {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        /* Cores do Cabeçalho da Tabela - Ajustadas para a imagem */
+        .data-table thead th {
+            background: linear-gradient(135deg, #FFC107 0%, #FF9800 100%); /* Cor Laranja/Amarela */
+            color: var(--primary-dark);
+            padding: 16px 12px;
+            font-weight: 700;
+            text-align: left;
+            white-space: nowrap;
+            position: relative;
+            border-bottom: 2px solid #E65100; /* Borda mais escura */
+        }
+
+        .data-table thead th:first-child {
+            border-radius: 12px 0 0 0;
+            width: 60px;
+            text-align: center;
+            background: linear-gradient(135deg, #FFA000 0%, #FFC107 100%);
+        }
+
+        .data-table thead th:last-child {
+            border-radius: 0 12px 0 0;
+        }
+
+        .data-table td {
+            padding: 14px 12px;
+            text-align: left;
+            white-space: nowrap;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            transition: all var(--transition-normal);
+        }
+        
+        /* Célula Cód e Vigência */
+        .data-table tbody td:first-child,
+        .data-table tbody td:last-child {
+            font-weight: 600;
+            text-align: center;
+            color: var(--secondary-light);
+        }
+
+        .data-table tbody tr {
+            transition: all var(--transition-normal);
+            cursor: pointer;
+            position: relative;
+        }
+
+        /* Efeito de brilho nas linhas selecionadas */
+        .data-table tbody tr.selected-row {
+            background: rgba(0, 188, 212, 0.1);
+            box-shadow: inset 4px 0 0 var(--secondary);
+            position: relative;
+        }
+
+        .data-table tbody tr.selected-row::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--secondary);
+            box-shadow: var(--glow-effect);
+        }
+
+        .data-table tbody tr:hover {
+            background: rgba(255, 255, 255, 0.03);
+            transform: translateX(4px);
+        }
+
+        .data-table tbody tr:hover td {
+            color: var(--text-primary);
+        }
+
+        /* ------------------------------------------- */
+        /* 3. PAINEL DE FILTROS - DESIGN MODERNO */
+        /* ------------------------------------------- */
+        .filter-panel {
+            background: var(--dark-surface);
+            margin: 0 20px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .filter-header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: var(--text-primary);
+            padding: 14px 20px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+        
+        .filter-content-wrapper {
+            display: flex;
+            align-items: flex-start;
+            padding: 20px;
+            gap: 30px;
+        }
+
+        /* 4. BOTÕES DE AÇÃO - BASEADOS NA IMAGEM (Ícones e Layout) */
+        .filter-actions {
+            display: flex;
+            gap: 15px; /* Layout horizontal como na imagem */
+            flex-direction: row;
+            align-items: center;
+            padding-right: 25px;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Estilo dos Botões Ação (Quadrados, com Ícones) */
+        .action-icon-btn {
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            font-size: 18px;
+            cursor: pointer;
+            background: var(--dark-surface-light);
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-normal);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .action-icon-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .action-icon-btn:hover::before {
+            left: 100%;
+        }
+        
+        .action-icon-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            background: var(--primary-light);
+        }
+        
+        /* Cores específicas dos botões da imagem */
+        #novo-btn-icon { color: var(--success); }
+        #editar-btn-icon { color: var(--secondary-light); }
+        #visualizar-btn-icon { color: var(--warning); }
+        #excluir-btn-icon { color: var(--error); }
+        #lixeira-btn-icon { color: var(--text-secondary); }
+
+        /* CAMPOS DE FILTRO - DESIGN AVANÇADO */
+        .filter-fields {
+            display: grid;
+            grid-template-columns: auto 1fr auto 1fr auto;
+            grid-template-rows: auto auto;
+            gap: 15px 20px;
+            width: 100%;
+            align-items: center;
+        }
+
+        .filter-fields label {
+            font-weight: 600;
+            text-align: right;
+            color: var(--text-secondary);
+            min-width: 100px;
+            font-size: 13px;
+        }
+
+        /* Estilo futurista para Inputs e Selects */
+        .filter-fields input, .filter-fields select {
+            padding: 12px 16px;
+            font-size: 13px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--dark-surface-light);
+            color: var(--text-primary);
+            border-radius: 8px;
+            transition: all var(--transition-normal);
+            width: 100%;
+            cursor: text;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-fields input:focus, .filter-fields select:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(0, 188, 212, 0.2), inset 0 2px 4px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        /* Ajuste do campo Setor para ocupar duas colunas */
+        .filter-fields label[for="setor"], .filter-fields select#setor {
+            grid-column: 1 / span 2;
+        }
+        .filter-fields select#setor {
+            grid-column: 2 / span 4;
+        }
+        .filter-fields label[for="turno"], .filter-fields select#turno {
+            grid-column: 3 / span 1;
+        }
+        .filter-fields select#turno {
+            grid-column: 4 / span 2;
+        }
+        
+        /* Scrollbar personalizada futurista */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary-light) 100%);
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0, 188, 212, 0.3);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, var(--secondary-light) 0%, var(--primary) 100%);
+            }
+
+        /* Cursor e Interação */
+        button, select, .action-icon-btn, .window-controls span {
+            cursor: pointer !important;
+        }
+
+        input[type="text"] {
+            cursor: text !important;
+        }
+        
+        /* Loading Spinner */
+        .loading-spinner {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(0, 188, 212, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--secondary);
+            animation: spin 1s ease-in-out infinite;
+            z-index: 100;
+        }
+        
+        @keyframes spin {
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        
+        /* Modal de confirmação */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background: var(--dark-surface);
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: modal-appear 0.3s ease-out;
+        }
+        
+        @keyframes modal-appear {
+            0% {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        
+        .modal-header {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+        
+        .modal-body {
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+        }
+        
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        .modal-btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+        }
+        
+        .modal-btn-primary {
+            background: var(--secondary);
+            color: var(--dark-bg);
+        }
+        
+        .modal-btn-secondary {
+            background: var(--dark-surface-light);
+            color: var(--text-primary);
+        }
+        
+        .modal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Responsividade */
+        @media (max-width: 1024px) {
+            .filter-content-wrapper {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .filter-actions {
+                flex-direction: row;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                padding-right: 0;
+                padding-bottom: 20px;
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .filter-fields {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .filter-fields label {
+                text-align: left;
+            }
+            
+            /* Reiniciando o grid para mobile */
+            .filter-fields input, .filter-fields select {
+                grid-column: auto;
+                width: 100%;
+            }
+        }
+        
+        /* Animações de entrada para elementos da tabela */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+
+    <div class="window-container">
+        <div class="window-header">
+            <div>
+                Sistema Kalpa Question - Consulta Responsáveis
+            </div>
+            <div class="window-controls">
+                <span><i class="fas fa-minus"></i></span>
+                <span><i class="far fa-square"></i></span>
+                <span id="close-btn"><i class="fas fa-times"></i></span>
+            </div>
+        </div>
+
+        <div class="window-content">
+            <div class="data-grid-container">
+                <div class="loading-spinner" id="loading-spinner"></div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Cód.</th>
+                            <th>Setor</th>
+                            <th>Turno</th>
+                            <th>Responsável</th>
+                            <th>Vigência</th>
+                        </tr>
+                    </thead>
+                    <tbody id="responsavel-body">
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="filter-panel">
+                <div class="filter-header">
+                    <div>
+                        <i class="fas fa-filter" style="margin-right: 10px;"></i>
+                        Filtros para Procura
+                    </div>
+                    <div id="status-registros">Filtrado: 56 registro(s) / Encontrado: 11</div>
+                </div>
+                
+                <div class="filter-content-wrapper">
+                    
+                    <div class="filter-actions">
+                        <button class="action-icon-btn" id="novo-btn" title="Novo Registro">
+                            <i class="fas fa-plus" id="novo-btn-icon"></i>
+                        </button>
+                        <button class="action-icon-btn" id="editar-btn" title="Editar Selecionado">
+                            <i class="fas fa-search" id="editar-btn-icon"></i>
+                        </button>
+                        <button class="action-icon-btn" id="visualizar-btn" title="Visualizar Detalhes">
+                            <i class="fas fa-binoculars" id="visualizar-btn-icon"></i>
+                        </button>
+                        <button class="action-icon-btn" id="excluir-btn" title="Excluir Registro">
+                            <i class="fas fa-times" id="excluir-btn-icon"></i>
+                        </button>
+                        <button class="action-icon-btn" id="lixeira-btn" title="Lixeira/Registros Inativos">
+                            <i class="fas fa-trash" id="lixeira-btn-icon"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="filter-fields">
+                        <label for="codigo">Código:</label>
+                        <input type="text" id="codigo" placeholder="Digite o Código">
+
+                        <label for="nome-responsavel">Nome Responsável:</label>
+                        <input type="text" id="nome-responsavel" placeholder="Nome Completo">
+                        
+                        <label for="vigencia">Vigência:</label>
+                        <select id="vigencia">
+                            <option value="2024">2024</option>
+                            <option value="2025">2025</option>
+                        </select>
+                        
+                        <label for="setor">Setor:</label>
+                        <select id="setor">
+                            <option value="">Todos</option>
+                            <option value="Maverick">AB-1 - Maverick</option>
+                            <option value="AB-2">AB-2</option>
+                            <option value="AB-5 e Plus">AB-5 e Plus</option>
+                            <option value="AB-6">AB-6</option>
+                        </select>
+
+                        <label for="turno">Turno:</label>
+                        <select id="turno">
+                            <option value="">Todos</option>
+                            <option value="1">1º</option>
+                            <option value="2">2º</option>
+                            <option value="3">3º</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="delete-modal">
+        <div class="modal-content">
+            <div class="modal-header">Confirmar Exclusão</div>
+            <div class="modal-body">
+                Tem certeza que deseja excluir o registro selecionado? Esta ação não pode ser desfeita.
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn modal-btn-secondary" id="cancel-delete">Cancelar</button>
+                <button class="modal-btn modal-btn-primary" id="confirm-delete">Excluir</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const dadosBase = [
+            { cod: 241, setor: 'AB-1 - Maverick', turno: '1º', responsavel: 'FELIPE SCARABELIN MENDES', vigencia: 2024 },
+            { cod: 242, setor: 'AB-1 - Maverick', turno: '2º', responsavel: 'UELBES DA SILVA COSTA', vigencia: 2024 },
+            { cod: 282, setor: 'AB-1 - Maverick', turno: '3º', responsavel: 'ROSENI DE SOUSA SILVA', vigencia: 2024 },
+            { cod: 243, setor: 'AB-2', turno: '1º', responsavel: 'ADRIANA MARIA DA SILVA ANDRADE', vigencia: 2024 },
+            { cod: 246, setor: 'AB-3', turno: '2º', responsavel: 'ANDRÉIA GOMES DA SILVA', vigencia: 2024 },
+            { cod: 291, setor: 'AB-3', turno: '3º', responsavel: 'ROSENI DE SOUSA SILVA', vigencia: 2024 },
+            { cod: 277, setor: 'AB-5 e Plus', turno: '1º', responsavel: 'MARIA SHEILA RODRIGUES MACIEL', vigencia: 2024 },
+            { cod: 283, setor: 'AB-5 e Plus', turno: '2º', responsavel: 'TATIANE FIGUEIREDO SILVA', vigencia: 2024 },
+            { cod: 284, setor: 'AB-5 e Plus', turno: '3º', responsavel: 'ROSENI DE SOUSA SILVA', vigencia: 2024 },
+            { cod: 251, setor: 'AB-6', turno: '1º', responsavel: 'MARIA SHEILA RODRIGUES MACIEL', vigencia: 2024 },
+            { cod: 285, setor: 'AB-6', turno: '2º', responsavel: 'TATIANE FIGUEIREDO SILVA', vigencia: 2024 },
+            { cod: 286, setor: 'AB-6', turno: '3º', responsavel: 'ROSENI DE SOUSA SILVA', vigencia: 2024 },
+        ];
+        
+        const tbody = document.getElementById('responsavel-body');
+        const selectSetor = document.getElementById('setor');
+        const selectTurno = document.getElementById('turno');
+        const selectVigencia = document.getElementById('vigencia');
+        const inputCodigo = document.getElementById('codigo');
+        const inputNomeResponsavel = document.getElementById('nome-responsavel');
+        const statusRegistros = document.getElementById('status-registros');
+        const loadingSpinner = document.getElementById('loading-spinner');
+        const deleteModal = document.getElementById('delete-modal');
+        let selectedRowIndex = 0;
+
+        // Criar efeito de partículas
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Tamanho aleatório
+                const size = Math.random() * 4 + 1;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Posição aleatória
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Atraso de animação aleatório
+                particle.style.animationDelay = `${Math.random() * 15}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // FUNÇÃO DE FECHAMENTO DIRETO (SEM MODAL)
+        function fecharJanelaEVoltar() {
+            // Adiciona a classe para a animação de saída
+            document.querySelector('.window-container').style.animation = 'window-appear 0.5s ease-out reverse forwards';
+            
+            // Redireciona APÓS a animação de saída
+            setTimeout(() => {
+                window.location.href = 'menu.php';
+            }, 500); // 500ms é a duração da animação CSS
+        }
+
+        // Função para mostrar loading
+        function showLoading() {
+            const spinner = document.getElementById('loading-spinner');
+            if (spinner) spinner.style.display = 'block';
+        }
+
+        // Função para esconder loading
+        function hideLoading() {
+            const spinner = document.getElementById('loading-spinner');
+            if (spinner) spinner.style.display = 'none';
+        }
+
+        // Função para simular uma operação assíncrona
+        function simulateAsyncOperation(duration = 1000) {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    resolve();
+                }, duration);
+            });
+        }
+
+        // Função para renderizar a tabela com animações
+        async function renderizarTabela(dados) {
+            showLoading();
+            
+            await simulateAsyncOperation(500);
+            
+            tbody.innerHTML = '';
+            
+            dados.forEach((item, index) => {
+                const row = tbody.insertRow();
+                row.style.animationDelay = `${index * 0.05}s`;
+                row.classList.add('fade-in-up');
+                
+                const codCell = row.insertCell();
+                codCell.textContent = item.cod;
+                
+                row.insertCell().textContent = item.setor;
+                row.insertCell().textContent = item.turno;
+                row.insertCell().textContent = item.responsavel;
+                
+                const vigenciaCell = row.insertCell();
+                vigenciaCell.textContent = item.vigencia;
+                
+                if (index === selectedRowIndex) {
+                    row.classList.add('selected-row');
+                }
+                
+                row.addEventListener('click', function() {
+                    document.querySelectorAll('.data-table tbody tr').forEach(r => {
+                        r.classList.remove('selected-row');
+                    });
+                    this.classList.add('selected-row');
+                    selectedRowIndex = index;
+                });
+            });
+            
+            statusRegistros.textContent = `Filtrado: ${dadosBase.length} registro(s) / Encontrado: ${dados.length}`;
+            
+            hideLoading();
+        }
+        
+        // Função para aplicar filtros
+        async function aplicarFiltro() {
+            showLoading();
+            await simulateAsyncOperation(300);
+            
+            const termoCodigo = inputCodigo.value.toLowerCase();
+            const termoResponsavel = inputNomeResponsavel.value.toLowerCase();
+            const termoSetor = selectSetor.value.toLowerCase();
+            const termoTurno = selectTurno.value.toLowerCase();
+            const termoVigencia = selectVigencia.value;
+            
+            const dadosFiltrados = dadosBase.filter(item => {
+                const matchCodigo = item.cod.toString().includes(termoCodigo);
+                const matchResponsavel = item.responsavel.toLowerCase().includes(termoResponsavel);
+                const matchSetor = termoSetor ? item.setor.toLowerCase() === termoSetor.toLowerCase() : true;
+                const matchTurno = termoTurno ? item.turno.toLowerCase() === termoTurno.toLowerCase() : true;
+                const matchVigencia = termoVigencia ? item.vigencia.toString() === termoVigencia : true;
+                
+                return matchCodigo && matchResponsavel && matchSetor && matchTurno && matchVigencia;
+            });
+            
+            renderizarTabela(dadosFiltrados);
+        }
+
+        // Funções para os botões (simulação - sem alerts)
+        async function novoRegistro() {
+            showLoading();
+            await simulateAsyncOperation(800);
+            hideLoading();
+        }
+
+        async function editarRegistro() {
+            if (selectedRowIndex === null) return;
+            showLoading();
+            await simulateAsyncOperation(800);
+            hideLoading();
+        }
+
+        async function visualizarDetalhes() {
+            if (selectedRowIndex === null) return;
+            showLoading();
+            await simulateAsyncOperation(800);
+            hideLoading();
+        }
+        
+        function confirmarExclusao() {
+            if (selectedRowIndex === null) return;
+            deleteModal.style.display = 'flex';
+        }
+        
+        async function excluirRegistro() {
+            deleteModal.style.display = 'none';
+            showLoading();
+            await simulateAsyncOperation(800);
+            hideLoading();
+        }
+
+        async function lixeira() {
+            showLoading();
+            await simulateAsyncOperation(800);
+            hideLoading();
+        }
+        
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            renderizarTabela(dadosBase);
+            
+            // Event Listeners para filtros
+            inputCodigo.addEventListener('keyup', aplicarFiltro);
+            inputNomeResponsavel.addEventListener('keyup', aplicarFiltro);
+            selectSetor.addEventListener('change', aplicarFiltro);
+            selectTurno.addEventListener('change', aplicarFiltro);
+            selectVigencia.addEventListener('change', aplicarFiltro);
+
+            // Event Listeners para botões de ação
+            document.getElementById('novo-btn').addEventListener('click', novoRegistro);
+            document.getElementById('editar-btn').addEventListener('click', editarRegistro);
+            document.getElementById('visualizar-btn').addEventListener('click', visualizarDetalhes);
+            document.getElementById('excluir-btn').addEventListener('click', confirmarExclusao);
+            document.getElementById('lixeira-btn').addEventListener('click', lixeira);
+            
+            // AÇÃO DE FECHAMENTO: LIGA O BOTÃO 'X' DIRETAMENTE À FUNÇÃO DE SAÍDA
+            document.getElementById('close-btn').addEventListener('click', fecharJanelaEVoltar);
+            
+            // Listeners do Modal de Exclusão
+            document.getElementById('cancel-delete').addEventListener('click', () => {
+                deleteModal.style.display = 'none';
+            });
+            document.getElementById('confirm-delete').addEventListener('click', excluirRegistro);
+            
+            // Fechar modais ao clicar fora
+            window.addEventListener('click', (event) => {
+                if (event.target === deleteModal) {
+                    deleteModal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

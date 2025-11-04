@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema KalpaQuestion - Consulta Competências</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ------------------------------------------- */
+        /* VARIÁVEIS E RESET MODERNO */
+        /* ------------------------------------------- */
+        :root {
+            --primary: #1a237e;
+            --primary-light: #303f9f;
+            --primary-dark: #000051;
+            --secondary: #00bcd4;
+            --secondary-light: #62efff;
+            --accent: #ff4081;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --error: #f44336;
+            --dark-bg: #0d1117;
+            --dark-surface: #161b22;
+            --dark-surface-light: #21262d;
+            --text-primary: #ffffff;
+            --text-secondary: #8b949e;
+            --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+            --hover-shadow: 0 15px 40px rgba(0, 188, 212, 0.3);
+            --glow-effect: 0 0 25px rgba(0, 188, 212, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: default;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', 'SF Pro Display', sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #0a0e17 50%, #151a25 100%);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ------------------------------------------- */
+        /* 1. JANELA PRINCIPAL - DESIGN FUTURISTA */
+        /* ------------------------------------------- */
+        .window-container {
+            background: var(--dark-surface);
+            border-radius: 16px;
+            box-shadow: var(--card-shadow), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            width: 1200px;
+            height: 800px;
+            max-width: 95vw;
+            max-height: 95vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Efeito de brilho sutil nas bordas */
+        .window-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+            z-index: 10;
+        }
+
+        /* Barra de Título - Design Moderno */
+        .window-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--text-primary);
+            padding: 16px 24px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            font-size: 16px;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .window-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .window-controls span {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .window-controls span:nth-child(1):hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .window-controls span:nth-child(2):hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .window-controls span:nth-child(3) {
+            background: var(--error);
+        }
+
+        .window-controls span:nth-child(3):hover {
+            background: #d32f2f;
+            transform: scale(1.1);
+        }
+
+        .window-content {
+            padding: 0;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--dark-surface-light);
+            overflow: hidden;
+        }
+        
+        /* ------------------------------------------- */
+        /* 2. TÍTULO E TABELA - DESIGN AVANÇADO */
+        /* ------------------------------------------- */
+        .grid-title {
+            font-size: 18px;
+            font-weight: 700;
+            padding: 20px 24px 10px;
+            color: var(--text-primary);
+            background: var(--dark-surface);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .grid-title i {
+            color: var(--secondary);
+            font-size: 20px;
+        }
+
+        .data-grid-container {
+            flex-grow: 1;
+            overflow: auto;
+            background: var(--dark-surface);
+            margin: 0 20px 20px;
+            border-radius: 12px;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .data-table thead {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .data-table thead th {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--text-primary);
+            padding: 16px 12px;
+            font-weight: 600;
+            text-align: left;
+            white-space: nowrap;
+            position: relative;
+            border-bottom: 2px solid var(--secondary);
+        }
+
+        .data-table thead th:first-child {
+            border-radius: 12px 0 0 0;
+            width: 50px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+        }
+
+        .data-table thead th:last-child {
+            border-radius: 0 12px 0 0;
+        }
+
+        .data-table td {
+            padding: 14px 12px;
+            text-align: left;
+            white-space: nowrap;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .data-table tbody tr {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        /* Efeito de brilho nas linhas selecionadas */
+        .data-table tbody tr.active-row {
+            background: rgba(0, 188, 212, 0.1);
+            box-shadow: inset 4px 0 0 var(--secondary);
+            position: relative;
+        }
+
+        .data-table tbody tr.active-row::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--secondary);
+            box-shadow: var(--glow-effect);
+        }
+
+        .data-table tbody tr:hover {
+            background: rgba(255, 255, 255, 0.03);
+            transform: translateX(4px);
+        }
+
+        .data-table tbody tr:hover td {
+            color: var(--text-primary);
+        }
+
+        /* Indicador de linha ativa */
+        .row-indicator {
+            width: 4px;
+            background: var(--secondary);
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .data-table tbody tr:hover .row-indicator {
+            opacity: 1;
+        }
+
+        /* Colunas booleanas com badges */
+        .badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-align: center;
+            display: inline-block;
+            min-width: 50px;
+        }
+
+        .badge-success {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4caf50;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+
+        .badge-neutral {
+            background: rgba(158, 158, 158, 0.2);
+            color: #9e9e9e;
+            border: 1px solid rgba(158, 158, 158, 0.3);
+        }
+
+        /* ------------------------------------------- */
+        /* 3. PAINEL DE FILTROS - DESIGN MODERNO */
+        /* ------------------------------------------- */
+        .filter-panel {
+            background: var(--dark-surface);
+            margin: 0 20px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .filter-header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: var(--text-primary);
+            padding: 14px 20px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+        
+        .filter-content-wrapper {
+            display: flex;
+            align-items: flex-start;
+            padding: 20px;
+            gap: 30px;
+        }
+
+        /* 4. BOTÕES DE AÇÃO - DESIGN PREMIUM */
+        .filter-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding-right: 25px;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .action-btn {
+            padding: 12px 18px;
+            font-size: 13px;
+            cursor: pointer;
+            background: var(--dark-surface-light);
+            color: var(--text-primary);
+            border: none;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+            transition: all 0.4s ease;
+            min-width: 150px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .action-btn:hover::before {
+            left: 100%;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .action-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .action-btn i {
+            font-size: 14px;
+            transition: transform 0.3s ease;
+        }
+
+        .action-btn:hover i {
+            transform: scale(1.2);
+        }
+
+        /* Cores dos botões com gradientes modernos */
+        .action-btn:nth-child(1) {
+            background: linear-gradient(135deg, var(--success) 0%, #66bb6a 100%);
+        }
+
+        .action-btn:nth-child(2) {
+            background: linear-gradient(135deg, var(--error) 0%, #ef5350 100%);
+        }
+
+        .action-btn:nth-child(3) {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);
+            color: #000;
+        }
+
+        .action-btn:nth-child(4) {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+        }
+
+        /* CAMPOS DE FILTRO - DESIGN AVANÇADO */
+        .filter-fields-container {
+            display: flex;
+            flex-grow: 1;
+            gap: 40px;
+        }
+
+        .filter-col-left {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 40%;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .input-group label {
+            width: 80px;
+            text-align: right;
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        .input-group input[type="text"] {
+            flex-grow: 1;
+            padding: 12px 16px;
+            font-size: 13px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--dark-surface-light);
+            color: var(--text-primary);
+            border-radius: 8px;
+            transition: all 0.4s ease;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-group input[type="text"]:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(0, 188, 212, 0.2), inset 0 2px 4px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .filter-col-right {
+            display: flex;
+            gap: 30px;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .radio-group-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .radio-group-title i {
+            color: var(--secondary);
+            font-size: 14px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .radio-option:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .radio-option input[type="radio"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            accent-color: var(--secondary);
+        }
+
+        /* ------------------------------------------- */
+        /* ANIMAÇÕES E EFEITOS ESPECIAIS */
+        /* ------------------------------------------- */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes glowPulse {
+            0%, 100% {
+                box-shadow: 0 0 5px rgba(0, 188, 212, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(0, 188, 212, 0.6);
+            }
+        }
+
+        .window-container {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .data-table tbody tr {
+            animation: slideIn 0.4s ease-out;
+        }
+
+        .action-btn {
+            animation: glowPulse 3s infinite;
+        }
+
+        /* Scrollbar personalizada futurista */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary-light) 100%);
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0, 188, 212, 0.3);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, var(--secondary-light) 0%, var(--primary) 100%);
+        }
+
+        /* Efeito de brilho nos elementos interativos */
+        .glow-on-hover:hover {
+            box-shadow: var(--glow-effect);
+        }
+
+        /* Botão de voltar ao menu */
+        .menu-btn {
+            position: absolute;
+            top: 16px;
+            left: 24px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .menu-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Cursor personalizado para elementos interativos */
+        button, select, input[type="text"], .window-controls span, .radio-option {
+            cursor: pointer;
+        }
+
+        input[type="text"] {
+            cursor: text;
+        }
+
+        /* Efeitos de partículas (decoração) */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--secondary);
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Responsividade */
+        @media (max-width: 1024px) {
+            .filter-content-wrapper {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .filter-actions {
+                flex-direction: row;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                padding-right: 0;
+                padding-bottom: 20px;
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .action-btn {
+                min-width: auto;
+                flex: 1;
+                justify-content: center;
+                font-size: 12px;
+                padding: 10px 12px;
+            }
+            
+            .filter-fields-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .filter-col-left {
+                width: 100%;
+            }
+            
+            .filter-col-right {
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="window-container">
+        <!-- Efeito de partículas -->
+        <div class="particles" id="particles"></div>
+        
+        <div class="window-header">
+            <div>
+                Sistema Kalpa Question - Consulta Competências
+            </div>
+            <div class="window-controls">
+                <span><i class="fas fa-minus"></i></span>
+                <span><i class="far fa-square"></i></span>
+                <span id="close-btn"><i class="fas fa-times"></i></span>
+            </div>
+        </div>
+
+        <div class="window-content">
+            <div class="grid-title">
+                <i class="fas fa-list-alt"></i>
+                Competências
+            </div>
+            
+            <div class="data-grid-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Competência</th>
+                            <th>Cód.</th>
+                            <th>Pergunta</th>
+                            <th>Multi Escolha</th>
+                            <th>Inativa</th>
+                        </tr>
+                    </thead>
+                    <tbody id="competencias-body">
+                        <!-- Dados serão inseridos via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="filter-panel">
+                <div class="filter-header">
+                    <div>
+                        <i class="fas fa-filter" style="margin-right: 10px;"></i>
+                        Filtros para Procura
+                    </div>
+                    <div id="status-registros">Filtrado: 161 registro(s) / Encontrado: 12</div>
+                </div>
+                
+                <div class="filter-content-wrapper">
+                    <div class="filter-actions">
+                        <button class="action-btn glow-on-hover" id="novo-btn">
+                            <i class="fas fa-plus"></i>
+                            Nova Competência
+                        </button>
+                        <button class="action-btn glow-on-hover" id="excluir-btn">
+                            <i class="fas fa-trash"></i>
+                            Excluir
+                        </button>
+                        <button class="action-btn glow-on-hover" id="buscar-btn">
+                            <i class="fas fa-search"></i>
+                            Buscar
+                        </button>
+                        <button class="action-btn glow-on-hover" id="salvar-btn">
+                            <i class="fas fa-save"></i>
+                            Salvar
+                        </button>
+                    </div>
+                    
+                    <div class="filter-fields-container">
+                        <div class="filter-col-left">
+                            <div class="input-group">
+                                <label for="codigo">Código:</label>
+                                <input type="text" id="codigo" placeholder="Digite o código">
+                            </div>
+                            <div class="input-group">
+                                <label for="descricao">Descrição:</label>
+                                <input type="text" id="descricao" placeholder="Digite a descrição">
+                            </div>
+                        </div>
+
+                        <div class="filter-col-right">
+                            <div class="radio-group">
+                                <div class="radio-group-title">
+                                    <i class="fas fa-check-circle"></i>
+                                    Múltipla Escolha
+                                </div>
+                                <label class="radio-option">
+                                    <input type="radio" name="multipla" value="Sim">
+                                    <span>Sim</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="multipla" value="Não" checked>
+                                    <span>Não</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="multipla" value="Todos">
+                                    <span>Todos</span>
+                                </label>
+                            </div>
+
+                            <div class="radio-group">
+                                <div class="radio-group-title">
+                                    <i class="fas fa-ban"></i>
+                                    Inativo
+                                </div>
+                                <label class="radio-option">
+                                    <input type="radio" name="inativo" value="Sim">
+                                    <span>Sim</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="inativo" value="Não" checked>
+                                    <span>Não</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="inativo" value="Todos">
+                                    <span>Todos</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const dadosBase = [
+            { comp: 'ADAPTABILIDADE E FLEXIBILIDADE', cod: 97, pergunta: 'Reage bem às mudanças e novos desafios.', multi: 'Sim', inativa: 'Não' },
+            { comp: 'ADAPTABILIDADE E FLEXIBILIDADE', cod: 151, pergunta: 'Demonstra flexibilidade e resiliência frente às mudanças e desafios, ajustando-se rapidamente a novas situações e mantendo o foco nos objetivos.', multi: 'Sim', inativa: 'Não' },
+            { comp: 'ADERÊNCIA A POLÍTICAS INTERNAS', cod: 118, pergunta: 'Segue as normas, regras e políticas estabelecidas pela empresa, tais como: respeito ao colega, cuida dos EPIs recebidos, é pontual, não caminha falando ou mexendo no celular, cumpre os horários do café da manhã e da refeição e respeita a ética de parceiros na área externa da empresa.', multi: 'Sim', inativa: 'Não' },
+            { comp: 'ADERÊNCIA A POLÍTICAS INTERNAS', cod: 130, pergunta: 'Segue as normas, regras e políticas estabelecidas pela empresa, tais como: respeito ao colega, cuida dos EPIs recebidos, é pontual, entrega documento no prazo quando solicitado, cumpre os horários das refeições, conhece a Política da Qualidade.', multi: 'Sim', inativa: 'Não' },
+            { comp: 'ADICIONAL', cod: 236, pergunta: 'Houve projetos específicos desenvolvidos por você durante o ano que trouxeram resultados significativos para a equipe, setor ou empresa? Se a resposta for sim, descreva qual.', multi: 'Não', inativa: 'Não' },
+            { comp: 'ALCANCE DE METAS E RESULTADOS', cod: 204, pergunta: 'Cumpre com os objetivos estratégicos estabelecidos para a área.', multi: 'Sim', inativa: 'Não' },
+            { comp: 'APRENDIZADO CONTÍNUO', cod: 203, pergunta: 'Demonstra interesse em adquirir novos conhecimentos e habilidades relevantes para o negócio.', multi: 'Sim', inativa: 'Não' },
+            { comp: 'APRENDIZADO CONTÍNUO', cod: 119, pergunta: 'Busca aprender e aplicar novos conhecimentos e habilidades a fim de melhorar seus resultados e mantendo-se atualizado com as tendências e inovações da área.', multi: 'Sim', inativa: 'Não' },
+            { comp: 'APRENDIZADO CONTÍNUO', cod: 95, pergunta: 'Faz cursos e aplica os conhecimentos no trabalho.', multi: 'Sim', inativa: 'Não' },
+            { comp: 'ASSIDUIDADE', cod: 36, pergunta: 'Conforme relatório de absenteísmo.', multi: 'Não', inativa: 'Não' },
+            { comp: 'COMUNICAÇÃO', cod: 10, pergunta: 'Comunica-se de forma clara, objetiva e respeitosa, tanto verbalmente quanto por escrito.', multi: 'Sim', inativa: 'Não' },
+            { comp: 'CONHECIMENTO TÉCNICO', cod: 121, pergunta: 'Possui o conhecimento técnico necessário para a execução de suas tarefas.', multi: 'Sim', inativa: 'Não' },
+        ];
+        
+        const tbody = document.getElementById('competencias-body');
+        const statusRegistros = document.getElementById('status-registros');
+
+        // Função para voltar ao menu.php
+        function voltarParaMenu() {
+            window.location.href = 'menu.php';
+        }
+
+        // Função para criar partículas
+        function criarParticulas() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (3 + Math.random() * 4) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        function renderizarTabela(dados) {
+            tbody.innerHTML = '';
+            
+            dados.forEach((item, index) => {
+                const row = tbody.insertRow();
+                
+                // Adiciona indicador de linha
+                const indicator = document.createElement('div');
+                indicator.className = 'row-indicator';
+                row.appendChild(indicator);
+                
+                // Célula de seta/indicador
+                const arrowCell = row.insertCell();
+                if (index === 0) {
+                    arrowCell.innerHTML = '<i class="fas fa-caret-right" style="color: var(--secondary);"></i>';
+                    row.classList.add('active-row');
+                } else {
+                    arrowCell.innerHTML = '';
+                }
+                arrowCell.style.textAlign = 'center';
+                arrowCell.style.color = 'var(--secondary)';
+
+                // Células de dados
+                row.insertCell().textContent = item.comp;
+                
+                const codCell = row.insertCell();
+                codCell.textContent = item.cod;
+                codCell.style.fontWeight = '600';
+                codCell.style.color = 'var(--secondary)';
+                
+                row.insertCell().textContent = item.pergunta;
+                
+                const multiCell = row.insertCell();
+                multiCell.innerHTML = `<span class="badge ${item.multi === 'Sim' ? 'badge-success' : 'badge-neutral'}">${item.multi}</span>`;
+                
+                const inativaCell = row.insertCell();
+                inativaCell.innerHTML = `<span class="badge ${item.inativa === 'Sim' ? 'badge-neutral' : 'badge-success'}">${item.inativa}</span>`;
+                
+                // Evento de clique para selecionar linha
+                row.addEventListener('click', function() {
+                    document.querySelectorAll('.data-table tbody tr').forEach(r => {
+                        r.classList.remove('active-row');
+                        r.cells[0].innerHTML = '';
+                    });
+                    this.classList.add('active-row');
+                    this.cells[0].innerHTML = '<i class="fas fa-caret-right" style="color: var(--secondary);"></i>';
+                });
+            });
+            
+            statusRegistros.textContent = `Filtrado: 161 registro(s) / Encontrado: ${dados.length}`;
+        }
+
+        function aplicarFiltro() {
+            const codigo = document.getElementById('codigo').value.toLowerCase();
+            const descricao = document.getElementById('descricao').value.toLowerCase();
+            const multipla = document.querySelector('input[name="multipla"]:checked').value;
+            const inativo = document.querySelector('input[name="inativo"]:checked').value;
+            
+            const dadosFiltrados = dadosBase.filter(item => {
+                const matchCodigo = codigo ? item.cod.toString().includes(codigo) : true;
+                const matchDescricao = descricao ? item.comp.toLowerCase().includes(descricao) : true;
+                const matchMultipla = multipla === 'Todos' ? true : item.multi === multipla;
+                const matchInativo = inativo === 'Todos' ? true : item.inativa === inativo;
+                
+                return matchCodigo && matchDescricao && matchMultipla && matchInativo;
+            });
+
+            renderizarTabela(dadosFiltrados);
+        }
+
+        // Funções para os botões
+        function novaCompetencia() {
+            alert('Funcionalidade de nova competência seria implementada aqui!');
+        }
+
+        function excluirCompetencia() {
+            alert('Funcionalidade de exclusão seria implementada aqui!');
+        }
+
+        function salvarDados() {
+            alert('Funcionalidade de salvamento seria implementada aqui!');
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            criarParticulas();
+            renderizarTabela(dadosBase);
+            
+            // Event Listeners
+            document.getElementById('buscar-btn').addEventListener('click', aplicarFiltro);
+            document.getElementById('novo-btn').addEventListener('click', novaCompetencia);
+            document.getElementById('excluir-btn').addEventListener('click', excluirCompetencia);
+            document.getElementById('salvar-btn').addEventListener('click', salvarDados);
+            document.getElementById('close-btn').addEventListener('click', voltarParaMenu);
+            
+            // Filtro em tempo real
+            document.getElementById('codigo').addEventListener('keyup', aplicarFiltro);
+            document.getElementById('descricao').addEventListener('keyup', aplicarFiltro);
+            document.querySelectorAll('input[name="multipla"], input[name="inativo"]').forEach(radio => {
+                radio.addEventListener('change', aplicarFiltro);
+            });
+        });
+    </script>
+</body>
+</html>
