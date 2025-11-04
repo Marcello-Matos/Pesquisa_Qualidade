@@ -10,23 +10,29 @@
         /* VARIÁVEIS E RESET MODERNO */
         /* ------------------------------------------- */
         :root {
-            --primary: #1a237e;
-            --primary-light: #303f9f;
-            --primary-dark: #000051;
-            --secondary: #00bcd4;
-            --secondary-light: #62efff;
+            --roxo-claro: #C9BDF2;
+            --azul-escuro: #2104D9;
+            --azul-medio: #1D04BF;
+            --azul-marinho: #1C0B8C;
+            --roxo-medio: #9A8DF2;
+            
+            --primary: var(--azul-marinho);
+            --primary-light: var(--azul-medio);
+            --primary-dark: var(--azul-escuro);
+            --secondary: var(--roxo-claro);
+            --secondary-light: var(--roxo-medio);
             --accent: #ff4081;
             --success: #4caf50;
             --warning: #ff9800;
             --error: #f44336;
             --dark-bg: #0d1117;
-            --dark-surface: #161b22;
-            --dark-surface-light: #21262d;
+            --dark-surface: rgba(22, 27, 34, 0.85);
+            --dark-surface-light: rgba(33, 38, 45, 0.9);
             --text-primary: #ffffff;
-            --text-secondary: #8b949e;
+            --text-secondary: #e0e0e0;
             --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-            --hover-shadow: 0 15px 40px rgba(0, 188, 212, 0.3);
-            --glow-effect: 0 0 25px rgba(0, 188, 212, 0.6);
+            --hover-shadow: 0 15px 40px rgba(201, 189, 242, 0.4);
+            --glow-effect: 0 0 25px rgba(201, 189, 242, 0.8);
         }
 
         * {
@@ -38,7 +44,15 @@
 
         body {
             font-family: 'Segoe UI', 'Roboto', 'SF Pro Display', sans-serif;
-            background: linear-gradient(135deg, var(--dark-bg) 0%, #0a0e17 50%, #151a25 100%);
+            background: linear-gradient(135deg, 
+                var(--azul-marinho) 0%, 
+                var(--azul-escuro) 25%, 
+                var(--azul-medio) 50%, 
+                var(--roxo-medio) 75%, 
+                var(--roxo-claro) 100%);
+            background-attachment: fixed;
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
             color: var(--text-primary);
             line-height: 1.6;
             min-height: 100vh;
@@ -47,16 +61,33 @@
             overflow-x: hidden;
         }
 
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
         /* ------------------------------------------- */
         /* HEADER - DESIGN FUTURISTA */
         /* ------------------------------------------- */
         .header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            background: linear-gradient(135deg, 
+                rgba(28, 11, 140, 0.9) 0%, 
+                rgba(29, 4, 191, 0.9) 50%, 
+                rgba(33, 4, 217, 0.9) 100%);
             color: white;
             padding: 20px 30px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
             position: relative;
             z-index: 100;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(201, 189, 242, 0.3);
         }
 
         .header::after {
@@ -66,7 +97,7 @@
             left: 0;
             right: 0;
             height: 2px;
-            background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+            background: linear-gradient(90deg, transparent, var(--roxo-claro), transparent);
         }
         
         .header-content {
@@ -85,10 +116,10 @@
         .logo h1 {
             font-size: 2.2rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #fff 0%, var(--secondary-light) 100%);
+            background: linear-gradient(135deg, #fff 0%, var(--roxo-claro) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(0, 188, 212, 0.3);
+            text-shadow: 0 0 20px rgba(201, 189, 242, 0.5);
         }
         
         .user-info {
@@ -101,7 +132,7 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary-light) 100%);
+            background: linear-gradient(135deg, var(--roxo-claro) 0%, var(--azul-medio) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -110,6 +141,7 @@
             font-size: 1.2rem;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.2);
         }
 
         .user-avatar:hover {
@@ -120,7 +152,7 @@
         .back-button {
             background: rgba(255, 255, 255, 0.15);
             color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             padding: 12px 24px;
             border-radius: 10px;
             cursor: pointer;
@@ -141,7 +173,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transition: left 0.5s ease;
         }
         
@@ -152,7 +184,8 @@
         .back-button:hover {
             background: rgba(255, 255, 255, 0.25);
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            border-color: var(--roxo-claro);
         }
         
         .back-button i {
@@ -186,18 +219,19 @@
         .page-title h2 {
             font-size: 2.8rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #fff 0%, var(--text-secondary) 100%);
+            background: linear-gradient(135deg, #fff 0%, var(--roxo-claro) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 15px;
-            text-shadow: 0 0 30px rgba(0, 188, 212, 0.2);
+            text-shadow: 0 0 30px rgba(201, 189, 242, 0.4);
         }
         
         .page-title p {
-            color: var(--text-secondary);
+            color: var(--text-primary);
             font-size: 1.3rem;
             max-width: 600px;
             margin: 0 auto;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
         }
 
         .page-title::after {
@@ -208,8 +242,9 @@
             transform: translateX(-50%);
             width: 100px;
             height: 3px;
-            background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+            background: linear-gradient(90deg, transparent, var(--roxo-claro), transparent);
             border-radius: 2px;
+            box-shadow: 0 0 10px rgba(201, 189, 242, 0.5);
         }
         
         /* ------------------------------------------- */
@@ -235,7 +270,8 @@
             height: 100%;
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
         }
 
         .menu-card::before {
@@ -245,13 +281,14 @@
             left: 0;
             right: 0;
             height: 1px;
-            background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+            background: linear-gradient(90deg, transparent, var(--roxo-claro), transparent);
         }
         
         .menu-card:hover {
             transform: translateY(-10px) scale(1.02);
             box-shadow: var(--hover-shadow);
-            border-color: rgba(0, 188, 212, 0.3);
+            border-color: rgba(201, 189, 242, 0.5);
+            background: rgba(22, 27, 34, 0.95);
         }
         
         .menu-icon {
@@ -267,11 +304,12 @@
             transition: all 0.4s ease;
             position: relative;
             z-index: 2;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
         .menu-card:hover .menu-icon {
             transform: scale(1.1) rotate(5deg);
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
         }
         
         .menu-card h3 {
@@ -281,6 +319,7 @@
             font-weight: 600;
             position: relative;
             z-index: 2;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
         }
         
         .menu-card p {
@@ -290,6 +329,7 @@
             position: relative;
             z-index: 2;
             line-height: 1.5;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         }
 
         /* Efeito de brilho no hover */
@@ -300,7 +340,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 188, 212, 0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(201, 189, 242, 0.2), transparent);
             transition: left 0.6s ease;
         }
 
@@ -309,91 +349,88 @@
         }
         
         /* ------------------------------------------- */
-        /* CORES DOS ÍCONES - GRADIENTES MODERNOS */
+        /* CORES DOS ÍCONES - GRADIENTES COM AS CORES DA EMPRESA */
         /* ------------------------------------------- */
-        .icon-avaliacao {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-        
         .icon-pesquisa {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            background: linear-gradient(135deg, var(--roxo-medio) 0%, var(--azul-escuro) 100%);
         }
         
         .icon-questionario {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            background: linear-gradient(135deg, var(--roxo-claro) 0%, var(--azul-medio) 100%);
         }
         
         .icon-vigencia {
-            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            background: linear-gradient(135deg, var(--azul-medio) 0%, var(--azul-marinho) 100%);
         }
         
         .icon-avaliadores {
-            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            background: linear-gradient(135deg, var(--roxo-claro) 0%, var(--roxo-medio) 100%);
         }
         
         .icon-gestores {
-            background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+            background: linear-gradient(135deg, var(--azul-escuro) 0%, var(--azul-marinho) 100%);
         }
         
         .icon-destinatarios {
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            background: linear-gradient(135deg, var(--roxo-medio) 0%, var(--azul-escuro) 100%);
         }
         
         .icon-competencias {
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            background: linear-gradient(135deg, var(--azul-medio) 0%, var(--roxo-medio) 100%);
         }
         
         .icon-configuracao {
-            background: linear-gradient(135deg, #a8c0ff 0%, #3f2b96 100%);
+            background: linear-gradient(135deg, var(--roxo-claro) 0%, var(--azul-marinho) 100%);
         }
         
         .icon-avaliar {
-            background: linear-gradient(135deg, #fdbb2d 0%, #22c1c3 100%);
+            background: linear-gradient(135deg, var(--azul-escuro) 0%, var(--roxo-claro) 100%);
         }
         
         .icon-consulta {
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            background: linear-gradient(135deg, var(--roxo-medio) 0%, var(--azul-medio) 100%);
         }
         
         .icon-resultado {
-            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            background: linear-gradient(135deg, var(--azul-marinho) 0%, var(--roxo-medio) 100%);
         }
         
         .icon-tabela {
-            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+            background: linear-gradient(135deg, var(--roxo-claro) 0%, var(--azul-escuro) 100%);
         }
         
         .icon-responsavel {
-            background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
+            background: linear-gradient(135deg, var(--azul-medio) 0%, var(--roxo-claro) 100%);
         }
         
         .icon-colaborador {
-            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            background: linear-gradient(135deg, var(--roxo-medio) 0%, var(--azul-marinho) 100%);
         }
         
         .icon-setor {
-            background: linear-gradient(135deg, #fccb90 0%, #d57eeb 100%);
+            background: linear-gradient(135deg, var(--azul-escuro) 0%, var(--roxo-medio) 100%);
         }
         
         .icon-turno {
-            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            background: linear-gradient(135deg, var(--roxo-claro) 0%, var(--azul-medio) 100%);
         }
         
         .icon-resumo {
-            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            background: linear-gradient(135deg, var(--azul-marinho) 0%, var(--roxo-claro) 100%);
         }
         
         /* ------------------------------------------- */
         /* FOOTER - DESIGN MODERNO */
         /* ------------------------------------------- */
         .footer {
-            background: var(--dark-surface);
+            background: rgba(22, 27, 34, 0.9);
             color: var(--text-secondary);
             text-align: center;
             padding: 30px 20px;
             margin-top: 60px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             position: relative;
+            backdrop-filter: blur(10px);
         }
 
         .footer::before {
@@ -403,7 +440,7 @@
             left: 0;
             right: 0;
             height: 1px;
-            background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+            background: linear-gradient(90deg, transparent, var(--roxo-claro), transparent);
         }
         
         /* ------------------------------------------- */
@@ -431,10 +468,10 @@
 
         @keyframes glow {
             0%, 100% {
-                box-shadow: 0 0 5px rgba(0, 188, 212, 0.3);
+                box-shadow: 0 0 5px rgba(201, 189, 242, 0.3);
             }
             50% {
-                box-shadow: 0 0 20px rgba(0, 188, 212, 0.6);
+                box-shadow: 0 0 20px rgba(201, 189, 242, 0.6);
             }
         }
 
@@ -469,7 +506,7 @@
             position: absolute;
             width: 3px;
             height: 3px;
-            background: var(--secondary);
+            background: var(--roxo-claro);
             border-radius: 50%;
             animation: float 8s infinite linear;
             opacity: 0.6;
@@ -761,7 +798,7 @@
             // Efeito visual antes da navegação
             const card = event.currentTarget;
             card.style.transform = 'scale(0.95)';
-            card.style.boxShadow = '0 0 30px rgba(0, 188, 212, 0.8)';
+            card.style.boxShadow = '0 0 30px rgba(201, 189, 242, 0.8)';
             
             setTimeout(() => {
                 // Aqui você pode redirecionar para as páginas específicas

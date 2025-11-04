@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema KalpaQuestion</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* Reset e configurações gerais */
         * {
@@ -22,9 +23,18 @@
             flex-direction: column;
         }
         
+        /* Cores da empresa */
+        :root {
+            --roxo-claro: #C9BDF2;
+            --azul-escuro: #2104D9;
+            --azul-medio: #1D04BF;
+            --azul-marinho: #1C0B8C;
+            --roxo-medio: #9A8DF2;
+        }
+        
         /* Header */
         .header {
-            background: #2c3e50;
+            background: linear-gradient(135deg, var(--azul-marinho) 0%, var(--azul-escuro) 100%);
             color: white;
             padding: 20px 30px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -49,7 +59,7 @@
         }
         
         .logo span {
-            color: #3498db;
+            color: var(--roxo-claro);
         }
         
         .user-info {
@@ -61,7 +71,7 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: #3498db;
+            background: var(--roxo-medio);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -78,7 +88,6 @@
             justify-content: center;
             align-items: center;
             padding: 40px 20px;
-            /* Removido max-width para permitir expansão horizontal */
             margin: 0 auto; 
             width: 100%;
         }
@@ -91,7 +100,7 @@
         
         .welcome-section h2 {
             font-size: 2.2rem;
-            color: #2c3e50;
+            color: var(--azul-marinho);
             margin-bottom: 15px;
         }
         
@@ -106,12 +115,9 @@
             display: flex;
             justify-content: center;
             gap: 30px;
-            flex-wrap: nowrap; /* GARANTE: Ícones sempre na mesma linha */
-            
-            /* FORÇA O CONTAINER A TER A LARGURA TOTAL DOS ITENS */
+            flex-wrap: nowrap;
             width: max-content; 
-            /* Se a largura for menor que 100% da viewport, o min-width garante o preenchimento */
-            min-width: 100%; 
+            min-width: 100%;
         }
         
         .nav-card {
@@ -119,16 +125,18 @@
             border-radius: 10px;
             padding: 30px;
             width: 250px;
-            flex-shrink: 0; /* IMPEDE que os cards encolham */
+            flex-shrink: 0;
             text-align: center;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
             cursor: pointer;
+            border: 2px solid transparent;
         }
         
         .nav-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            border-color: var(--roxo-claro);
         }
         
         .nav-icon {
@@ -145,7 +153,7 @@
         
         .nav-card h3 {
             font-size: 1.3rem;
-            color: #2c3e50;
+            color: var(--azul-marinho);
             margin-bottom: 10px;
         }
         
@@ -154,26 +162,26 @@
             font-size: 0.95rem;
         }
         
-        /* Cores dos cards */
+        /* Cores dos cards usando a paleta da empresa */
         .card-rh {
-            background: linear-gradient(135deg, #3498db, #2c3e50);
+            background: linear-gradient(135deg, var(--roxo-medio), var(--azul-escuro));
         }
         
         .card-import {
-            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            background: linear-gradient(135deg, var(--roxo-claro), var(--azul-marinho));
         }
         
         .card-admin {
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            background: linear-gradient(135deg, var(--azul-escuro), var(--azul-marinho));
         }
         
         .card-pesquisa {
-             background: linear-gradient(135deg, #f39c12, #e67e22);
+            background: linear-gradient(135deg, var(--azul-medio), var(--roxo-medio));
         }
 
         /* Footer */
         .footer {
-            background: #2c3e50;
+            background: linear-gradient(135deg, var(--azul-marinho) 0%, var(--azul-escuro) 100%);
             color: white;
             text-align: center;
             padding: 20px;
@@ -182,8 +190,6 @@
         
         /* Responsividade */
         @media (max-width: 1024px) { 
-            /* Para telas que podem ser menores que o menu, forçamos a expansão */
-            
             .header-content {
                 flex-direction: column;
                 text-align: center;
@@ -194,16 +200,13 @@
             }
             
             .main-content {
-                /* Permite que o main-content cresça junto com o nav-menu */
                 max-width: none;
-                /* Alinha o conteúdo à esquerda quando a rolagem horizontal aparecer (no body) */
                 align-items: flex-start; 
             }
             
             .nav-menu {
-                /* Usa o flex-start para manter o conteúdo à esquerda */
                 justify-content: flex-start; 
-                width: max-content; /* Mantém a largura baseada no conteúdo */
+                width: max-content;
                 min-width: 100%;
             }
             
@@ -216,8 +219,50 @@
                 font-size: 1.8rem;
             }
         }
+
+        /* Efeitos adicionais para um visual mais moderno */
+        .nav-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--roxo-claro), var(--azul-medio));
+            border-radius: 10px 10px 0 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-card:hover::before {
+            opacity: 1;
+        }
+        
+        .header {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(201, 189, 242, 0.1) 50%, transparent 70%);
+            animation: shimmer 8s infinite linear;
+        }
+        
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header class="header">
