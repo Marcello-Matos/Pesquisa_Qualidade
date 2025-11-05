@@ -514,8 +514,17 @@
             cursor: text;
         }
 
-        /* Responsividade */
+        /* =========================================== */
+        /* RESPONSIVIDADE PARA DISPOSITIVOS MÓVEIS */
+        /* =========================================== */
+
+        /* Tablets (768px a 1024px) */
         @media (max-width: 1024px) {
+            .window-container {
+                height: 90vh;
+                max-height: 90vh;
+            }
+            
             .filter-content-wrapper {
                 flex-direction: column;
                 gap: 20px;
@@ -550,6 +559,302 @@
             
             .filter-fields label {
                 text-align: left;
+            }
+            
+            .data-table {
+                font-size: 12px;
+            }
+            
+            .data-table th, .data-table td {
+                padding: 12px 8px;
+            }
+        }
+
+        /* Smartphones grandes (576px a 768px) */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .window-container {
+                height: 95vh;
+                max-height: 95vh;
+                max-width: 98vw;
+                border-radius: 12px;
+            }
+            
+            .window-header {
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+            
+            .data-grid-container {
+                margin: 15px;
+            }
+            
+            .filter-panel {
+                margin: 0 15px 15px;
+            }
+            
+            .filter-header {
+                padding: 12px 15px;
+                font-size: 13px;
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+            
+            .filter-content-wrapper {
+                padding: 15px;
+                gap: 15px;
+            }
+            
+            .filter-actions {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            
+            .action-btn {
+                min-width: calc(50% - 8px);
+                font-size: 11px;
+                padding: 8px 10px;
+            }
+            
+            .filter-fields {
+                gap: 12px;
+            }
+            
+            .filter-fields label {
+                font-size: 12px;
+                min-width: 100px;
+            }
+            
+            .filter-fields input, .filter-fields select {
+                padding: 10px 12px;
+                font-size: 12px;
+            }
+            
+            .data-table {
+                font-size: 11px;
+            }
+            
+            .data-table th, .data-table td {
+                padding: 10px 6px;
+            }
+            
+            /* Ocultar colunas menos importantes em smartphones */
+            .data-table th:nth-child(1),
+            .data-table td:nth-child(1) {
+                display: none;
+            }
+        }
+
+        /* Smartphones pequenos (até 576px) */
+        @media (max-width: 576px) {
+            body {
+                padding: 5px;
+            }
+            
+            .window-container {
+                height: 98vh;
+                max-height: 98vh;
+                max-width: 99vw;
+                border-radius: 10px;
+            }
+            
+            .window-header {
+                padding: 10px 12px;
+                font-size: 13px;
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            
+            .window-controls {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .data-grid-container {
+                margin: 10px;
+                border-radius: 8px;
+            }
+            
+            .filter-panel {
+                margin: 0 10px 10px;
+                border-radius: 8px;
+            }
+            
+            .filter-header {
+                padding: 10px 12px;
+                font-size: 12px;
+            }
+            
+            .filter-content-wrapper {
+                padding: 12px;
+                gap: 12px;
+            }
+            
+            .filter-actions {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .action-btn {
+                min-width: 100%;
+                font-size: 12px;
+                padding: 10px 12px;
+            }
+            
+            .filter-fields {
+                gap: 10px;
+            }
+            
+            .filter-fields label {
+                font-size: 11px;
+                min-width: 80px;
+            }
+            
+            .filter-fields input, .filter-fields select {
+                padding: 8px 10px;
+                font-size: 11px;
+            }
+            
+            .data-table {
+                font-size: 10px;
+            }
+            
+            .data-table th, .data-table td {
+                padding: 8px 4px;
+            }
+            
+            /* Ocultar mais colunas em telas pequenas */
+            .data-table th:nth-child(1),
+            .data-table td:nth-child(1),
+            .data-table th:nth-child(5),
+            .data-table td:nth-child(5) {
+                display: none;
+            }
+        }
+
+        /* Dispositivos muito pequenos (até 360px) */
+        @media (max-width: 360px) {
+            .window-header {
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+            
+            .window-controls span {
+                width: 28px;
+                height: 28px;
+                font-size: 12px;
+            }
+            
+            .filter-content-wrapper {
+                padding: 10px;
+            }
+            
+            .action-btn {
+                font-size: 11px;
+                padding: 8px 10px;
+            }
+            
+            .filter-fields label {
+                font-size: 10px;
+                min-width: 70px;
+            }
+            
+            .filter-fields input, .filter-fields select {
+                padding: 6px 8px;
+                font-size: 10px;
+            }
+            
+            .data-table {
+                font-size: 9px;
+            }
+            
+            .data-table th, .data-table td {
+                padding: 6px 3px;
+            }
+        }
+
+        /* Ajustes para orientação paisagem em dispositivos móveis */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .window-container {
+                height: 98vh;
+                max-height: 98vh;
+            }
+            
+            .window-header {
+                padding: 8px 15px;
+            }
+            
+            .data-grid-container {
+                margin: 10px;
+            }
+            
+            .filter-panel {
+                margin: 0 10px 10px;
+            }
+            
+            .filter-content-wrapper {
+                flex-direction: row;
+                padding: 12px;
+                gap: 15px;
+            }
+            
+            .filter-actions {
+                flex-direction: column;
+                border-right: 1px solid rgba(255, 255, 255, 0.1);
+                border-bottom: none;
+                padding-right: 15px;
+                padding-bottom: 0;
+                width: auto;
+            }
+            
+            .action-btn {
+                min-width: 120px;
+                font-size: 11px;
+                padding: 8px 10px;
+            }
+            
+            .data-table {
+                font-size: 10px;
+            }
+            
+            .data-table th, .data-table td {
+                padding: 8px 6px;
+            }
+        }
+
+        /* Melhorias de acessibilidade para toque */
+        @media (hover: none) {
+            .action-btn:hover, .window-controls span:hover {
+                transform: none;
+            }
+            
+            .action-btn:active, .window-controls span:active {
+                transform: scale(0.95);
+            }
+            
+            .data-table tbody tr:hover {
+                background: rgba(255, 255, 255, 0.02);
+                transform: none;
+            }
+            
+            .data-table tbody tr:active {
+                background: rgba(0, 188, 212, 0.1);
+            }
+        }
+
+        /* Suporte para dispositivos com telas de alta densidade */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .action-btn {
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            }
+            
+            .action-btn:hover {
+                box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
             }
         }
 
@@ -784,22 +1089,234 @@
             alert('Funcionalidade de salvamento seria implementada aqui!');
         }
         
+                // Inicialização quando o DOM estiver carregado
         document.addEventListener('DOMContentLoaded', () => {
-            criarParticulas();
-            popularCompetencias();
+            // Renderizar dados iniciais
             renderizarTabela(dadosBase);
+            popularCompetencias();
+            criarParticulas();
             
-            // Event Listeners
-            document.getElementById('buscar-btn').addEventListener('click', aplicarFiltro);
+            // Adicionar botão de voltar ao menu
+            const menuBtn = document.createElement('button');
+            menuBtn.className = 'menu-btn';
+            menuBtn.innerHTML = '<i class="fas fa-arrow-left"></i> Voltar ao Menu';
+            menuBtn.onclick = voltarParaMenu;
+            document.querySelector('.window-header').prepend(menuBtn);
+            
+            // Event Listeners para os botões de ação
             document.getElementById('novo-btn').addEventListener('click', novaCompetencia);
             document.getElementById('excluir-btn').addEventListener('click', excluirCompetencia);
+            document.getElementById('buscar-btn').addEventListener('click', aplicarFiltro);
             document.getElementById('salvar-btn').addEventListener('click', salvarDados);
-            document.getElementById('close-btn').addEventListener('click', voltarParaMenu);
             
-            // Filtro em tempo real
-            document.getElementById('coddf').addEventListener('keyup', aplicarFiltro);
+            // Event Listeners para filtros em tempo real
+            document.getElementById('coddf').addEventListener('input', aplicarFiltro);
             document.getElementById('competencia').addEventListener('change', aplicarFiltro);
+            
+            // Event Listeners para os controles da janela
+            document.querySelector('.window-controls span:nth-child(1)').addEventListener('click', () => {
+                document.querySelector('.window-container').style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    document.querySelector('.window-container').style.transform = 'scale(1)';
+                }, 150);
+            });
+            
+            document.querySelector('.window-controls span:nth-child(2)').addEventListener('click', () => {
+                const container = document.querySelector('.window-container');
+                if (container.style.width === '100%') {
+                    container.style.width = '1200px';
+                    container.style.height = '800px';
+                } else {
+                    container.style.width = '100%';
+                    container.style.height = '100%';
+                }
+            });
+            
+            document.getElementById('close-btn').addEventListener('click', () => {
+                if (confirm('Deseja realmente fechar o sistema?')) {
+                    window.close();
+                }
+            });
+            
+            // Efeitos de hover avançados
+            const actionButtons = document.querySelectorAll('.action-btn');
+            actionButtons.forEach(btn => {
+                btn.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px) scale(1.05)';
+                });
+                
+                btn.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+            
+            // Efeito de digitação no campo de busca
+            const coddfInput = document.getElementById('coddf');
+            coddfInput.addEventListener('focus', function() {
+                this.style.background = 'var(--dark-surface)';
+                this.style.borderColor = 'var(--secondary)';
+            });
+            
+            coddfInput.addEventListener('blur', function() {
+                this.style.background = 'var(--dark-surface-light)';
+                this.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+            });
+            
+            // Sistema de seleção com teclado
+            document.addEventListener('keydown', (e) => {
+                const rows = document.querySelectorAll('.data-table tbody tr');
+                const selectedRow = document.querySelector('.selected-row');
+                let currentIndex = Array.from(rows).indexOf(selectedRow);
+                
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    if (currentIndex < rows.length - 1) {
+                        rows[currentIndex].classList.remove('selected-row');
+                        rows[currentIndex + 1].classList.add('selected-row');
+                        rows[currentIndex + 1].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    if (currentIndex > 0) {
+                        rows[currentIndex].classList.remove('selected-row');
+                        rows[currentIndex - 1].classList.add('selected-row');
+                        rows[currentIndex - 1].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                } else if (e.key === 'Enter' && selectedRow) {
+                    // Simular ação ao pressionar Enter na linha selecionada
+                    selectedRow.style.background = 'rgba(0, 188, 212, 0.2)';
+                    setTimeout(() => {
+                        selectedRow.style.background = '';
+                    }, 300);
+                }
+            });
+            
+            // Efeito de loading inicial
+            const tableBody = document.getElementById('competencias-body');
+            tableBody.style.opacity = '0';
+            setTimeout(() => {
+                tableBody.style.transition = 'opacity 0.5s ease';
+                tableBody.style.opacity = '1';
+            }, 300);
+            
+            // Atualizar estatísticas em tempo real
+            function atualizarEstatisticas() {
+                const totalRegistros = 1304;
+                const registrosEncontrados = document.querySelectorAll('.data-table tbody tr').length;
+                document.getElementById('status-registros').textContent = 
+                    `Filtrado: ${totalRegistros} registro(s) / Encontrado: ${registrosEncontrados}`;
+            }
+            
+            // Observar mudanças na tabela para atualizar estatísticas
+            const observer = new MutationObserver(atualizarEstatisticas);
+            observer.observe(tbody, { childList: true });
+            
+            // Efeito de confirmação ao salvar
+            const salvarBtn = document.getElementById('salvar-btn');
+            salvarBtn.addEventListener('click', function() {
+                const originalText = this.innerHTML;
+                this.innerHTML = '<i class="fas fa-check"></i> Salvo!';
+                this.style.background = 'linear-gradient(135deg, var(--success) 0%, #66bb6a 100%)';
+                
+                setTimeout(() => {
+                    this.innerHTML = originalText;
+                    this.style.background = 'linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)';
+                }, 2000);
+            });
+            
+            // Tooltips para botões (simulação)
+            const botoes = document.querySelectorAll('.action-btn');
+            botoes.forEach(botao => {
+                botao.addEventListener('mouseenter', function() {
+                    const tooltip = document.createElement('div');
+                    tooltip.className = 'tooltip';
+                    tooltip.textContent = this.getAttribute('data-tooltip') || this.querySelector('i').className.includes('fa-plus') ? 'Adicionar nova competência' : 
+                                        this.querySelector('i').className.includes('fa-trash') ? 'Excluir competência selecionada' :
+                                        this.querySelector('i').className.includes('fa-search') ? 'Buscar competências' :
+                                        this.querySelector('i').className.includes('fa-save') ? 'Salvar alterações' : 'Ação do sistema';
+                    tooltip.style.position = 'absolute';
+                    tooltip.style.background = 'var(--dark-surface)';
+                    tooltip.style.color = 'var(--text-primary)';
+                    tooltip.style.padding = '8px 12px';
+                    tooltip.style.borderRadius = '6px';
+                    tooltip.style.fontSize = '12px';
+                    tooltip.style.zIndex = '1000';
+                    tooltip.style.boxShadow = '0 4px 12px rgba(0,0,0,0.3)';
+                    tooltip.style.border = '1px solid rgba(255,255,255,0.1)';
+                    tooltip.style.transform = 'translateY(-40px)';
+                    tooltip.style.whiteSpace = 'nowrap';
+                    
+                    this.appendChild(tooltip);
+                });
+                
+                botao.addEventListener('mouseleave', function() {
+                    const tooltip = this.querySelector('.tooltip');
+                    if (tooltip) {
+                        tooltip.remove();
+                    }
+                });
+            });
+            
+            // Efeito de pulso para indicar carregamento
+            function efeitoPulso(elemento) {
+                elemento.style.animation = 'glowPulse 1.5s ease-in-out';
+                setTimeout(() => {
+                    elemento.style.animation = '';
+                }, 1500);
+            }
+            
+            // Aplicar efeito de pulso periodicamente nos elementos importantes
+            setInterval(() => {
+                const elementosImportantes = [
+                    document.querySelector('.selected-row'),
+                    document.getElementById('buscar-btn')
+                ].filter(el => el);
+                
+                elementosImportantes.forEach(el => {
+                    if (Math.random() > 0.7) {
+                        efeitoPulso(el);
+                    }
+                });
+            }, 5000);
+            
+            console.log('Sistema KalpuatQuestion carregado com sucesso!');
         });
+
+        // Função para exportar dados (adicional)
+        function exportarDados() {
+            const dados = [];
+            document.querySelectorAll('.data-table tbody tr').forEach(row => {
+                const cells = row.querySelectorAll('td');
+                dados.push({
+                    codDF: cells[1].textContent,
+                    competencia: cells[2].textContent,
+                    pergunta: cells[3].textContent,
+                    ordem: cells[4].textContent
+                });
+            });
+            
+            const blob = new Blob([JSON.stringify(dados, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'competencias_kalpuat.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Adicionar botão de exportação dinamicamente
+        function adicionarBotaoExportacao() {
+            const exportBtn = document.createElement('button');
+            exportBtn.className = 'action-btn';
+            exportBtn.innerHTML = '<i class="fas fa-download"></i> Exportar';
+            exportBtn.style.background = 'linear-gradient(135deg, var(--warning) 0%, #ffb74d 100%)';
+            exportBtn.onclick = exportarDados;
+            
+            document.querySelector('.filter-actions').appendChild(exportBtn);
+        }
+
+        // Chamar após o carregamento completo
+        setTimeout(adicionarBotaoExportacao, 1000);
     </script>
 </body>
 </html>

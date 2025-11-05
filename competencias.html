@@ -519,17 +519,33 @@
             opacity: 0.6;
         }
 
-        /* ------------------------------------------- */
-        /* RESPONSIVIDADE AVANÇADA */
-        /* ------------------------------------------- */
-        @media (max-width: 1200px) {
+        /* =========================================== */
+        /* RESPONSIVIDADE PARA DISPOSITIVOS MÓVEIS */
+        /* =========================================== */
+
+        /* Tablets (768px a 1024px) */
+        @media (max-width: 1024px) {
             .menu-grid {
                 grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
                 gap: 25px;
+                max-width: 700px;
+            }
+            
+            .page-title h2 {
+                font-size: 2.4rem;
+            }
+            
+            .page-title p {
+                font-size: 1.2rem;
             }
         }
 
+        /* Smartphones grandes (576px a 768px) */
         @media (max-width: 768px) {
+            .header {
+                padding: 15px 20px;
+            }
+            
             .header-content {
                 flex-direction: column;
                 text-align: center;
@@ -539,6 +555,17 @@
             .user-info {
                 flex-direction: column;
                 gap: 15px;
+                width: 100%;
+            }
+            
+            .back-button {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .main-content {
+                padding: 30px 15px;
+                min-height: calc(100vh - 180px);
             }
             
             .menu-grid {
@@ -547,47 +574,318 @@
                 max-width: 600px;
             }
             
+            .page-title {
+                margin-bottom: 40px;
+            }
+            
             .page-title h2 {
                 font-size: 2.2rem;
             }
 
             .page-title p {
                 font-size: 1.1rem;
+                padding: 0 15px;
+            }
+
+            .menu-card {
+                padding: 35px 25px;
             }
 
             .menu-icon {
                 width: 80px;
                 height: 80px;
                 font-size: 2.2rem;
+                margin-bottom: 20px;
+            }
+            
+            .menu-card h3 {
+                font-size: 1.3rem;
+            }
+            
+            .menu-card p {
+                font-size: 0.95rem;
+            }
+            
+            .footer {
+                padding: 25px 15px;
+                margin-top: 40px;
             }
         }
-        
-        @media (max-width: 480px) {
-            .menu-grid {
-                grid-template-columns: 1fr;
-                max-width: 350px;
+
+        /* Smartphones médios (481px a 576px) */
+        @media (max-width: 576px) {
+            .header {
+                padding: 12px 15px;
+            }
+            
+            .logo h1 {
+                font-size: 1.8rem;
+            }
+            
+            .user-avatar {
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
+            }
+            
+            .main-content {
+                padding: 25px 10px;
+                min-height: calc(100vh - 160px);
+            }
+            
+            .page-title {
+                margin-bottom: 30px;
             }
             
             .page-title h2 {
-                font-size: 1.8rem;
+                font-size: 2rem;
+                padding: 0 10px;
             }
 
-            .header {
-                padding: 15px 20px;
+            .page-title p {
+                font-size: 1rem;
+                padding: 0 10px;
             }
-
-            .main-content {
-                padding: 30px 15px;
+            
+            .page-title::after {
+                width: 80px;
+                bottom: -15px;
             }
-
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                gap: 18px;
+            }
+            
             .menu-card {
                 padding: 30px 20px;
+                border-radius: 14px;
             }
 
             .menu-icon {
                 width: 70px;
                 height: 70px;
                 font-size: 2rem;
+                margin-bottom: 18px;
+                border-radius: 20px;
+            }
+            
+            .menu-card h3 {
+                font-size: 1.2rem;
+                margin-bottom: 12px;
+            }
+            
+            .menu-card p {
+                font-size: 0.9rem;
+                line-height: 1.4;
+            }
+            
+            .footer {
+                padding: 20px 10px;
+                margin-top: 30px;
+            }
+            
+            .footer p {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Smartphones pequenos (até 480px) */
+        @media (max-width: 480px) {
+            .header {
+                padding: 10px 12px;
+            }
+            
+            .logo h1 {
+                font-size: 1.6rem;
+            }
+            
+            .user-info {
+                gap: 12px;
+            }
+            
+            .user-avatar {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            
+            .back-button {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .main-content {
+                padding: 20px 8px;
+                min-height: calc(100vh - 140px);
+            }
+            
+            .page-title {
+                margin-bottom: 25px;
+            }
+            
+            .page-title h2 {
+                font-size: 1.8rem;
+            }
+
+            .page-title p {
+                font-size: 0.95rem;
+            }
+            
+            .menu-grid {
+                max-width: 350px;
+                gap: 15px;
+            }
+            
+            .menu-card {
+                padding: 25px 18px;
+                border-radius: 12px;
+            }
+
+            .menu-icon {
+                width: 65px;
+                height: 65px;
+                font-size: 1.8rem;
+                margin-bottom: 15px;
+                border-radius: 18px;
+            }
+            
+            .menu-card h3 {
+                font-size: 1.15rem;
+                margin-bottom: 10px;
+            }
+            
+            .menu-card p {
+                font-size: 0.85rem;
+            }
+            
+            .footer {
+                padding: 15px 8px;
+                margin-top: 25px;
+            }
+            
+            .footer p {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Dispositivos muito pequenos (até 360px) */
+        @media (max-width: 360px) {
+            .logo h1 {
+                font-size: 1.4rem;
+            }
+            
+            .main-content {
+                padding: 15px 5px;
+            }
+            
+            .page-title h2 {
+                font-size: 1.6rem;
+            }
+
+            .page-title p {
+                font-size: 0.9rem;
+            }
+            
+            .menu-grid {
+                max-width: 320px;
+                gap: 12px;
+            }
+            
+            .menu-card {
+                padding: 20px 15px;
+            }
+
+            .menu-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.6rem;
+                margin-bottom: 12px;
+            }
+            
+            .menu-card h3 {
+                font-size: 1.1rem;
+            }
+            
+            .menu-card p {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Ajustes para orientação paisagem em dispositivos móveis */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .main-content {
+                padding: 20px 15px;
+                min-height: auto;
+            }
+            
+            .page-title {
+                margin-bottom: 20px;
+            }
+            
+            .page-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .page-title p {
+                font-size: 1rem;
+            }
+            
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 600px;
+                gap: 15px;
+            }
+            
+            .menu-card {
+                padding: 20px 15px;
+            }
+            
+            .menu-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.8rem;
+                margin-bottom: 15px;
+            }
+        }
+
+        /* Melhorias de acessibilidade para toque */
+        @media (hover: none) {
+            .menu-card:hover {
+                transform: none;
+            }
+            
+            .menu-card:active {
+                transform: scale(0.98);
+                box-shadow: 0 5px 20px rgba(201, 189, 242, 0.3);
+            }
+            
+            .user-avatar:hover {
+                transform: none;
+            }
+            
+            .user-avatar:active {
+                transform: scale(0.95);
+            }
+            
+            .back-button:hover {
+                transform: none;
+            }
+            
+            .back-button:active {
+                transform: scale(0.98);
+            }
+        }
+
+        /* Suporte para dispositivos com telas de alta densidade */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .menu-card {
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            }
+            
+            .menu-card:hover {
+                box-shadow: 0 8px 25px rgba(201, 189, 242, 0.3);
             }
         }
 

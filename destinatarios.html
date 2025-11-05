@@ -465,8 +465,17 @@
             cursor: text;
         }
 
-        /* Responsividade */
+        /* =========================================== */
+        /* RESPONSIVIDADE PARA DISPOSITIVOS MÓVEIS */
+        /* =========================================== */
+
+        /* Tablets (768px a 1024px) */
         @media (max-width: 1024px) {
+            .window-container {
+                height: 90vh;
+                max-height: 90vh;
+            }
+            
             .filter-content-wrapper {
                 flex-direction: column;
                 gap: 15px;
@@ -502,6 +511,349 @@
             .filter-fields label {
                 text-align: left;
             }
+            
+            .data-table {
+                font-size: 11px;
+            }
+            
+            .data-table th, .data-table td {
+                padding: 6px 4px;
+            }
+            
+            /* Ocultar colunas menos importantes em tablets */
+            .data-table th:nth-child(4),
+            .data-table td:nth-child(4),
+            .data-table th:nth-child(5),
+            .data-table td:nth-child(5) {
+                display: none;
+            }
+        }
+
+        /* Smartphones grandes (576px a 768px) */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .window-container {
+                height: 95vh;
+                max-height: 95vh;
+                max-width: 98vw;
+                border-radius: 10px;
+            }
+            
+            .window-header {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+            
+            .tabs-container {
+                padding: 0 15px;
+            }
+            
+            .tab-item {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+            
+            .data-grid-container {
+                margin: 10px;
+            }
+            
+            .filter-panel {
+                margin: 0 10px 10px;
+            }
+            
+            .filter-header {
+                padding: 8px 12px;
+                font-size: 12px;
+                flex-direction: column;
+                gap: 5px;
+                text-align: center;
+            }
+            
+            .filter-content-wrapper {
+                padding: 12px;
+                gap: 12px;
+            }
+            
+            .filter-actions {
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+            
+            .action-btn {
+                min-width: calc(50% - 6px);
+                font-size: 10px;
+                padding: 6px 8px;
+            }
+            
+            .filter-fields {
+                gap: 6px;
+            }
+            
+            .filter-fields label {
+                font-size: 11px;
+                min-width: 70px;
+            }
+            
+            .filter-fields input, .filter-fields select {
+                padding: 5px 6px;
+                font-size: 11px;
+            }
+            
+            .data-table {
+                font-size: 10px;
+            }
+            
+            .data-table th, .data-table td {
+                padding: 5px 3px;
+            }
+            
+            /* Ocultar mais colunas em smartphones */
+            .data-table th:nth-child(4),
+            .data-table td:nth-child(4),
+            .data-table th:nth-child(5),
+            .data-table td:nth-child(5),
+            .data-table th:nth-child(6),
+            .data-table td:nth-child(6) {
+                display: none;
+            }
+        }
+
+        /* Smartphones pequenos (até 576px) */
+        @media (max-width: 576px) {
+            body {
+                padding: 5px;
+            }
+            
+            .window-container {
+                height: 98vh;
+                max-height: 98vh;
+                max-width: 99vw;
+                border-radius: 8px;
+            }
+            
+            .window-header {
+                padding: 8px 12px;
+                font-size: 13px;
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+            
+            .window-controls {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .tabs-container {
+                padding: 0 10px;
+                overflow-x: auto;
+                justify-content: flex-start;
+            }
+            
+            .tab-item {
+                padding: 6px 10px;
+                font-size: 11px;
+                white-space: nowrap;
+            }
+            
+            .data-grid-container {
+                margin: 8px;
+                border-radius: 6px;
+            }
+            
+            .filter-panel {
+                margin: 0 8px 8px;
+                border-radius: 6px;
+            }
+            
+            .filter-header {
+                padding: 6px 10px;
+                font-size: 11px;
+            }
+            
+            .filter-content-wrapper {
+                padding: 10px;
+                gap: 10px;
+            }
+            
+            .filter-actions {
+                flex-direction: column;
+                gap: 6px;
+            }
+            
+            .action-btn {
+                min-width: 100%;
+                font-size: 11px;
+                padding: 8px 10px;
+            }
+            
+            .filter-fields {
+                gap: 8px;
+            }
+            
+            .filter-fields label {
+                font-size: 11px;
+                min-width: 60px;
+            }
+            
+            .filter-fields input, .filter-fields select {
+                padding: 6px 8px;
+                font-size: 11px;
+            }
+            
+            .data-table {
+                font-size: 9px;
+            }
+            
+            .data-table th, .data-table td {
+                padding: 4px 2px;
+            }
+            
+            /* Ocultar ainda mais colunas em telas pequenas */
+            .data-table th:nth-child(1),
+            .data-table td:nth-child(1),
+            .data-table th:nth-child(4),
+            .data-table td:nth-child(4),
+            .data-table th:nth-child(5),
+            .data-table td:nth-child(5),
+            .data-table th:nth-child(6),
+            .data-table td:nth-child(6),
+            .data-table th:nth-child(7),
+            .data-table td:nth-child(7) {
+                display: none;
+            }
+        }
+
+        /* Dispositivos muito pequenos (até 360px) */
+        @media (max-width: 360px) {
+            .window-header {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+            
+            .window-controls span {
+                width: 24px;
+                height: 24px;
+                font-size: 10px;
+            }
+            
+            .tab-item {
+                padding: 5px 8px;
+                font-size: 10px;
+            }
+            
+            .filter-content-wrapper {
+                padding: 8px;
+            }
+            
+            .action-btn {
+                font-size: 10px;
+                padding: 6px 8px;
+            }
+            
+            .filter-fields label {
+                font-size: 10px;
+            }
+            
+            .filter-fields input, .filter-fields select {
+                padding: 5px 6px;
+                font-size: 10px;
+            }
+            
+            .data-table {
+                font-size: 8px;
+            }
+            
+            .data-table th, .data-table td {
+                padding: 3px 1px;
+            }
+        }
+
+        /* Ajustes para orientação paisagem em dispositivos móveis */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .window-container {
+                height: 98vh;
+                max-height: 98vh;
+            }
+            
+            .window-header {
+                padding: 6px 12px;
+            }
+            
+            .tabs-container {
+                padding: 0 12px;
+            }
+            
+            .data-grid-container {
+                margin: 8px;
+            }
+            
+            .filter-panel {
+                margin: 0 8px 8px;
+            }
+            
+            .filter-content-wrapper {
+                flex-direction: row;
+                padding: 10px;
+                gap: 15px;
+            }
+            
+            .filter-actions {
+                flex-direction: column;
+                border-right: 1px solid rgba(255, 255, 255, 0.1);
+                border-bottom: none;
+                padding-right: 15px;
+                padding-bottom: 0;
+                width: auto;
+            }
+            
+            .action-btn {
+                min-width: 100px;
+                font-size: 10px;
+                padding: 6px 8px;
+            }
+            
+            .data-table {
+                font-size: 9px;
+            }
+            
+            .data-table th, .data-table td {
+                padding: 5px 3px;
+            }
+        }
+
+        /* Melhorias de acessibilidade para toque */
+        @media (hover: none) {
+            .action-btn:hover, .tab-item:hover, .window-controls span:hover {
+                transform: none;
+            }
+            
+            .action-btn:active, .tab-item:active {
+                transform: scale(0.98);
+            }
+            
+            .data-table tbody tr:hover {
+                background: rgba(255, 255, 255, 0.02);
+                transform: none;
+            }
+            
+            .data-table tbody tr:active {
+                background: rgba(0, 188, 212, 0.1);
+            }
+        }
+
+        /* Suporte para dispositivos com telas de alta densidade */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .action-btn {
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            }
+            
+            .action-btn:hover {
+                box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+            }
         }
 
         /* Ajustes para telas menores */
@@ -526,7 +878,6 @@
         
         <div class="window-header">
             <div>
-                
                 Sistema Kalpa Question - Consulta Destinatários
             </div>
             <div class="window-controls">

@@ -32,6 +32,8 @@
             flex-direction: column;
             overflow: hidden;
             border: 1px solid #333;
+            max-width: 95vw;
+            max-height: 95vh;
         }
 
         .consulta-title-bar {
@@ -44,11 +46,13 @@
             font-weight: 600;
             font-size: 18px;
             border-bottom: 1px solid #333;
+            flex-shrink: 0;
         }
 
         .title-buttons {
             display: flex;
             gap: 10px;
+            align-items: center;
         }
 
         .menu-btn {
@@ -64,6 +68,7 @@
             align-items: center;
             gap: 5px;
             transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
         .menu-btn:hover {
@@ -83,6 +88,7 @@
             justify-content: center;
             cursor: pointer;
             font-weight: bold;
+            flex-shrink: 0;
         }
 
         .consulta-body {
@@ -114,12 +120,14 @@
         .table-container {
             overflow: auto;
             flex-grow: 1;
+            position: relative;
         }
 
         .data-table {
             width: 100%;
             border-collapse: collapse;
             font-size: 14px;
+            min-width: 600px;
         }
 
         .data-table thead {
@@ -173,6 +181,7 @@
             overflow: hidden;
             border: 1px solid #444;
             margin-top: 10px;
+            flex-shrink: 0;
         }
 
         .filter-header {
@@ -214,6 +223,7 @@
             gap: 8px;
             min-width: 120px;
             justify-content: flex-start;
+            transition: all 0.3s ease;
         }
 
         .action-btn:hover {
@@ -238,6 +248,7 @@
             align-items: center;
             gap: 8px;
             min-width: 120px;
+            transition: all 0.3s ease;
         }
 
         .icon-btn:hover {
@@ -311,6 +322,473 @@
             height: 18px;
             cursor: pointer;
         }
+
+        /* Indicador de Scroll para Mobile */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(33, 150, 243, 0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            display: none;
+            z-index: 10;
+        }
+
+        /* =========================================== */
+        /* RESPONSIVIDADE AVANÇADA */
+        /* =========================================== */
+
+        /* Tablets (768px a 1024px) */
+        @media (max-width: 1024px) {
+            .consulta-container {
+                height: 90vh;
+                max-height: 90vh;
+            }
+            
+            .filter-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .filter-buttons {
+                flex-direction: row;
+                border-right: none;
+                border-bottom: 1px solid #444;
+                padding-right: 0;
+                padding-bottom: 20px;
+                justify-content: space-between;
+            }
+            
+            .action-buttons {
+                flex-direction: row;
+                gap: 10px;
+            }
+            
+            .action-btn, .icon-btn {
+                min-width: auto;
+                flex: 1;
+                justify-content: center;
+                font-size: 13px;
+                padding: 8px 12px;
+            }
+            
+            .filter-fields {
+                border-right: none;
+                border-bottom: 1px solid #444;
+                padding-right: 0;
+                padding-bottom: 20px;
+                flex-direction: row;
+                gap: 20px;
+            }
+            
+            .filter-field-group input[type="text"] {
+                width: 200px;
+            }
+            
+            .data-table {
+                font-size: 13px;
+            }
+            
+            .data-table th, .data-table td {
+                padding: 10px 12px;
+            }
+        }
+
+        /* Tablets Pequenos (600px a 768px) */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .consulta-container {
+                height: 95vh;
+                max-height: 95vh;
+                max-width: 98vw;
+                border-radius: 8px;
+            }
+            
+            .consulta-title-bar {
+                padding: 12px 15px;
+                font-size: 16px;
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            
+            .title-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .consulta-body {
+                padding: 15px;
+                gap: 12px;
+            }
+            
+            .section-title {
+                font-size: 20px;
+                text-align: center;
+            }
+            
+            .data-table-section {
+                margin: 0;
+            }
+            
+            .filter-section {
+                margin-top: 8px;
+            }
+            
+            .filter-header {
+                padding: 10px 15px;
+                font-size: 13px;
+                text-align: center;
+            }
+            
+            .filter-content {
+                padding: 15px;
+                gap: 15px;
+            }
+            
+            .filter-buttons {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .action-btn, .icon-btn {
+                min-width: 100%;
+                font-size: 12px;
+                padding: 8px 10px;
+            }
+            
+            .filter-fields {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .filter-field-group input[type="text"] {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .filter-radios h4 {
+                font-size: 15px;
+                text-align: center;
+            }
+            
+            .radio-group {
+                flex-direction: row;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .data-table {
+                font-size: 12px;
+                min-width: 550px;
+            }
+            
+            .data-table th, .data-table td {
+                padding: 8px 10px;
+            }
+            
+            .scroll-indicator {
+                display: block;
+            }
+        }
+
+        /* Smartphones (480px a 600px) */
+        @media (max-width: 600px) {
+            body {
+                padding: 5px;
+            }
+            
+            .consulta-container {
+                height: 98vh;
+                max-height: 98vh;
+                max-width: 99vw;
+                border-radius: 6px;
+            }
+            
+            .consulta-title-bar {
+                padding: 10px 12px;
+                font-size: 14px;
+            }
+            
+            .menu-btn {
+                padding: 6px 12px;
+                font-size: 11px;
+            }
+            
+            .close-btn {
+                width: 25px;
+                height: 25px;
+                font-size: 12px;
+            }
+            
+            .consulta-body {
+                padding: 12px;
+                gap: 10px;
+            }
+            
+            .section-title {
+                font-size: 18px;
+            }
+            
+            .filter-header {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+            
+            .filter-content {
+                padding: 12px;
+                gap: 12px;
+            }
+            
+            .action-btn, .icon-btn {
+                font-size: 11px;
+                padding: 6px 8px;
+                min-width: 100px;
+            }
+            
+            .filter-field-group label {
+                font-size: 12px;
+            }
+            
+            .filter-field-group input[type="text"] {
+                padding: 8px 10px;
+                font-size: 12px;
+                max-width: 100%;
+            }
+            
+            .filter-radios h4 {
+                font-size: 14px;
+            }
+            
+            .radio-group {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .data-table {
+                font-size: 11px;
+                min-width: 500px;
+            }
+            
+            .data-table th, .data-table td {
+                padding: 6px 8px;
+            }
+            
+            /* Ocultar coluna "Inativo" em telas pequenas */
+            .data-table th:nth-child(5),
+            .data-table td:nth-child(5) {
+                display: none;
+            }
+        }
+
+        /* Smartphones Pequenos (até 480px) */
+        @media (max-width: 480px) {
+            .consulta-title-bar {
+                font-size: 13px;
+                padding: 8px 10px;
+            }
+            
+            .title-buttons {
+                gap: 8px;
+            }
+            
+            .menu-btn {
+                padding: 5px 10px;
+                font-size: 10px;
+            }
+            
+            .close-btn {
+                width: 22px;
+                height: 22px;
+            }
+            
+            .consulta-body {
+                padding: 10px;
+            }
+            
+            .section-title {
+                font-size: 16px;
+            }
+            
+            .filter-content {
+                padding: 10px;
+                gap: 10px;
+            }
+            
+            .action-btn, .icon-btn {
+                font-size: 10px;
+                padding: 5px 8px;
+                min-width: 90px;
+            }
+            
+            .filter-field-group label {
+                font-size: 11px;
+            }
+            
+            .filter-field-group input[type="text"] {
+                padding: 6px 8px;
+                font-size: 11px;
+            }
+            
+            .filter-radios h4 {
+                font-size: 13px;
+            }
+            
+            .radio-option {
+                font-size: 11px;
+            }
+            
+            .data-table {
+                font-size: 10px;
+                min-width: 450px;
+            }
+            
+            .data-table th, .data-table td {
+                padding: 5px 6px;
+            }
+            
+            /* Ocultar mais colunas em telas muito pequenas */
+            .data-table th:nth-child(2),
+            .data-table td:nth-child(2),
+            .data-table th:nth-child(5),
+            .data-table td:nth-child(5) {
+                display: none;
+            }
+        }
+
+        /* Dispositivos Muito Pequenos (até 360px) */
+        @media (max-width: 360px) {
+            .consulta-title-bar {
+                font-size: 12px;
+            }
+            
+            .menu-btn {
+                font-size: 9px;
+                padding: 4px 8px;
+            }
+            
+            .action-btn, .icon-btn {
+                font-size: 9px;
+                padding: 4px 6px;
+                min-width: 80px;
+            }
+            
+            .filter-field-group label {
+                font-size: 10px;
+            }
+            
+            .filter-field-group input[type="text"] {
+                font-size: 10px;
+                padding: 5px 7px;
+            }
+            
+            .data-table {
+                font-size: 9px;
+                min-width: 400px;
+            }
+        }
+
+        /* Orientação Paisagem em Dispositivos Móveis */
+        @media (max-height: 500px) and (orientation: landscape) {
+            body {
+                padding: 5px;
+            }
+            
+            .consulta-container {
+                height: 98vh;
+                max-height: 98vh;
+            }
+            
+            .consulta-title-bar {
+                padding: 8px 12px;
+            }
+            
+            .consulta-body {
+                padding: 10px;
+                gap: 8px;
+            }
+            
+            .filter-content {
+                grid-template-columns: auto 1fr auto;
+                padding: 10px;
+                gap: 15px;
+            }
+            
+            .filter-buttons {
+                flex-direction: column;
+                border-right: 1px solid #444;
+                border-bottom: none;
+                padding-right: 15px;
+                padding-bottom: 0;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .action-btn, .icon-btn {
+                min-width: 100px;
+                font-size: 11px;
+                padding: 6px 8px;
+            }
+            
+            .filter-fields {
+                border-right: 1px solid #444;
+                border-bottom: none;
+                padding-right: 15px;
+                padding-bottom: 0;
+                flex-direction: column;
+            }
+            
+            .data-table {
+                font-size: 11px;
+            }
+            
+            .data-table th, .data-table td {
+                padding: 6px 8px;
+            }
+        }
+
+        /* Melhorias de Acessibilidade para Toque */
+        @media (hover: none) {
+            .action-btn:hover, .icon-btn:hover, .menu-btn:hover {
+                transform: none;
+            }
+            
+            .action-btn:active, .icon-btn:active, .menu-btn:active {
+                transform: scale(0.95);
+            }
+            
+            .data-table tbody tr:hover {
+                background: rgba(255, 255, 255, 0.02);
+            }
+            
+            .data-table tbody tr:active {
+                background: rgba(33, 150, 243, 0.2);
+            }
+        }
+
+        /* Suporte para Telas de Alta Densidade */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .action-btn, .icon-btn {
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            }
+            
+            .action-btn:hover, .icon-btn:hover {
+                box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+            }
+        }
     </style>
 </head>
 <body>
@@ -329,6 +807,9 @@
 
         <div class="data-table-section">
             <div class="table-container">
+                <div class="scroll-indicator">
+                    <i class="fas fa-arrows-left-right"></i> Arraste para ver mais
+                </div>
                 <table class="data-table" id="avaliadores-table">
                     <thead>
                         <tr>
@@ -531,6 +1012,35 @@ document.addEventListener('DOMContentLoaded', function() {
     radioFilters.forEach(radio => {
         radio.addEventListener('change', applyFilters);
     });
+
+    // Ajuste responsivo dinâmico
+    function ajustarResponsividade() {
+        const width = window.innerWidth;
+        const tabela = document.querySelector('.data-table');
+        
+        if (width <= 600) {
+            // Esconde colunas em telas pequenas
+            document.querySelectorAll('.data-table th:nth-child(2), .data-table td:nth-child(2)').forEach(el => {
+                el.style.display = 'none';
+            });
+        } else {
+            // Mostra todas as colunas em telas maiores
+            document.querySelectorAll('.data-table th, .data-table td').forEach(el => {
+                el.style.display = '';
+            });
+        }
+
+        if (width <= 480) {
+            // Esconde mais colunas em telas muito pequenas
+            document.querySelectorAll('.data-table th:nth-child(5), .data-table td:nth-child(5)').forEach(el => {
+                el.style.display = 'none';
+            });
+        }
+    }
+
+    // Executar na inicialização e no redimensionamento
+    ajustarResponsividade();
+    window.addEventListener('resize', ajustarResponsividade);
 });
 </script>
 </body>

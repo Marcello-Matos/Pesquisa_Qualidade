@@ -46,7 +46,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
         /* ------------------------------------------- */
@@ -91,6 +91,7 @@
             user-select: none;
             font-size: 16px;
             position: relative;
+            flex-shrink: 0;
         }
 
         .window-header::after {
@@ -155,6 +156,8 @@
             background: var(--dark-surface);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             flex-shrink: 0;
+            overflow-x: auto;
+            white-space: nowrap;
         }
 
         .tab-item {
@@ -167,6 +170,7 @@
             transition: all 0.3s ease;
             color: var(--text-secondary);
             border-bottom: 2px solid transparent;
+            flex-shrink: 0;
         }
 
         .tab-item.active {
@@ -190,12 +194,14 @@
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
         }
 
         .data-table {
             width: 100%;
             border-collapse: collapse;
             font-size: 12px;
+            min-width: 600px;
         }
 
         .data-table thead {
@@ -284,6 +290,8 @@
             justify-content: space-between;
             align-items: center;
             font-size: 13px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
         
         .filter-content-wrapper {
@@ -465,8 +473,21 @@
             cursor: text;
         }
 
-        /* Responsividade */
+        /* =========================================== */
+        /* RESPONSIVIDADE AVANÇADA */
+        /* =========================================== */
+
+        /* Tablets (768px a 1024px) */
         @media (max-width: 1024px) {
+            body {
+                padding: 15px;
+            }
+            
+            .window-container {
+                height: 90vh;
+                max-height: 90vh;
+            }
+            
             .filter-content-wrapper {
                 flex-direction: column;
                 gap: 15px;
@@ -480,6 +501,7 @@
                 padding-bottom: 15px;
                 width: 100%;
                 justify-content: space-between;
+                flex-wrap: wrap;
             }
             
             .action-btn {
@@ -488,6 +510,7 @@
                 justify-content: center;
                 font-size: 11px;
                 padding: 6px 8px;
+                min-width: 120px;
             }
             
             .filter-fields {
@@ -502,12 +525,49 @@
             .filter-fields label {
                 text-align: left;
             }
+            
+            .data-table {
+                font-size: 11px;
+            }
+            
+            .data-table th, .data-table td {
+                padding: 8px 6px;
+            }
         }
 
-        /* Ajustes para telas menores */
-        @media (max-height: 800px) {
+        /* Tablets Pequenos (600px a 768px) */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
             .window-container {
-                height: 700px;
+                height: 95vh;
+                max-height: 95vh;
+                max-width: 98vw;
+                border-radius: 10px;
+            }
+            
+            .window-header {
+                padding: 10px 15px;
+                font-size: 14px;
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            
+            .window-controls {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .tabs-container {
+                padding: 0 10px;
+            }
+            
+            .tab-item {
+                padding: 8px 12px;
+                font-size: 12px;
             }
             
             .data-grid-container {
@@ -517,13 +577,363 @@
             .filter-panel {
                 margin: 0 10px 10px;
             }
+            
+            .filter-header {
+                padding: 8px 12px;
+                font-size: 12px;
+                flex-direction: column;
+                text-align: center;
+                gap: 8px;
+            }
+            
+            .filter-content-wrapper {
+                padding: 12px;
+                gap: 15px;
+            }
+            
+            .filter-actions {
+                gap: 6px;
+            }
+            
+            .action-btn {
+                min-width: calc(50% - 6px);
+                font-size: 10px;
+                padding: 6px 8px;
+            }
+            
+            .filter-fields {
+                gap: 8px;
+            }
+            
+            .filter-fields label {
+                font-size: 11px;
+                min-width: 70px;
+            }
+            
+            .filter-fields input, .filter-fields select {
+                padding: 5px 6px;
+                font-size: 11px;
+            }
+            
+            .data-table {
+                font-size: 10px;
+            }
+            
+            .data-table th, .data-table td {
+                padding: 6px 4px;
+            }
+            
+            /* Ocultar colunas menos importantes */
+            .data-table th:nth-child(1),
+            .data-table td:nth-child(1) {
+                display: none;
+            }
+        }
+
+        /* Smartphones (480px a 600px) */
+        @media (max-width: 600px) {
+            body {
+                padding: 5px;
+            }
+            
+            .window-container {
+                height: 98vh;
+                max-height: 98vh;
+                max-width: 99vw;
+                border-radius: 8px;
+            }
+            
+            .window-header {
+                padding: 8px 10px;
+                font-size: 13px;
+            }
+            
+            .window-controls span {
+                width: 24px;
+                height: 24px;
+                font-size: 10px;
+            }
+            
+            .tabs-container {
+                padding: 0 8px;
+            }
+            
+            .tab-item {
+                padding: 6px 10px;
+                font-size: 11px;
+            }
+            
+            .data-grid-container {
+                margin: 8px;
+                border-radius: 6px;
+            }
+            
+            .filter-panel {
+                margin: 0 8px 8px;
+                border-radius: 6px;
+            }
+            
+            .filter-header {
+                padding: 6px 10px;
+                font-size: 11px;
+            }
+            
+            .filter-content-wrapper {
+                padding: 10px;
+                gap: 12px;
+            }
+            
+            .filter-actions {
+                flex-direction: column;
+                gap: 6px;
+            }
+            
+            .action-btn {
+                min-width: 100%;
+                font-size: 11px;
+                padding: 8px 10px;
+            }
+            
+            .filter-fields {
+                gap: 6px;
+            }
+            
+            .filter-fields label {
+                font-size: 10px;
+                min-width: 60px;
+            }
+            
+            .filter-fields input, .filter-fields select {
+                padding: 4px 6px;
+                font-size: 10px;
+            }
+            
+            .data-table {
+                font-size: 9px;
+                min-width: 500px;
+            }
+            
+            .data-table th, .data-table td {
+                padding: 5px 3px;
+            }
+            
+            /* Ocultar mais colunas */
+            .data-table th:nth-child(1),
+            .data-table td:nth-child(1),
+            .data-table th:nth-child(6),
+            .data-table td:nth-child(6) {
+                display: none;
+            }
+        }
+
+        /* Smartphones Pequenos (até 480px) */
+        @media (max-width: 480px) {
+            .window-header {
+                font-size: 12px;
+                padding: 6px 8px;
+            }
+            
+            .window-controls {
+                gap: 5px;
+            }
+            
+            .window-controls span {
+                width: 22px;
+                height: 22px;
+            }
+            
+            .tab-item {
+                padding: 5px 8px;
+                font-size: 10px;
+            }
+            
+            .filter-content-wrapper {
+                padding: 8px;
+            }
+            
+            .action-btn {
+                font-size: 10px;
+                padding: 6px 8px;
+            }
+            
+            .filter-fields label {
+                font-size: 9px;
+                min-width: 50px;
+            }
+            
+            .filter-fields input, .filter-fields select {
+                padding: 3px 5px;
+                font-size: 9px;
+            }
+            
+            .data-table {
+                font-size: 8px;
+                min-width: 450px;
+            }
+            
+            .data-table th, .data-table td {
+                padding: 4px 2px;
+            }
+            
+            .menu-btn {
+                top: 8px;
+                left: 8px;
+                padding: 4px 8px;
+                font-size: 10px;
+            }
+        }
+
+        /* Dispositivos Muito Pequenos (até 360px) */
+        @media (max-width: 360px) {
+            .window-header {
+                font-size: 11px;
+            }
+            
+            .tab-item {
+                padding: 4px 6px;
+                font-size: 9px;
+            }
+            
+            .action-btn {
+                font-size: 9px;
+                padding: 5px 6px;
+            }
+            
+            .action-btn i {
+                font-size: 10px;
+            }
+            
+            .filter-fields label {
+                font-size: 8px;
+            }
+            
+            .filter-fields input, .filter-fields select {
+                font-size: 8px;
+            }
+            
+            .data-table {
+                font-size: 7px;
+                min-width: 400px;
+            }
+        }
+
+        /* Orientação Paisagem em Dispositivos Móveis */
+        @media (max-height: 500px) and (orientation: landscape) {
+            body {
+                padding: 5px;
+            }
+            
+            .window-container {
+                height: 98vh;
+                max-height: 98vh;
+            }
+            
+            .window-header {
+                padding: 6px 10px;
+            }
+            
+            .tabs-container {
+                padding: 0 8px;
+            }
+            
+            .tab-item {
+                padding: 4px 8px;
+                font-size: 10px;
+            }
+            
+            .data-grid-container {
+                margin: 8px;
+            }
+            
+            .filter-panel {
+                margin: 0 8px 8px;
+            }
+            
+            .filter-content-wrapper {
+                flex-direction: row;
+                padding: 8px;
+                gap: 10px;
+            }
+            
+            .filter-actions {
+                flex-direction: column;
+                border-right: 1px solid rgba(255, 255, 255, 0.1);
+                border-bottom: none;
+                padding-right: 10px;
+                padding-bottom: 0;
+                width: auto;
+            }
+            
+            .action-btn {
+                min-width: 100px;
+                font-size: 9px;
+                padding: 4px 6px;
+            }
+            
+            .data-table {
+                font-size: 9px;
+            }
+            
+            .data-table th, .data-table td {
+                padding: 4px 3px;
+            }
+        }
+
+        /* Melhorias de Acessibilidade para Toque */
+        @media (hover: none) {
+            .action-btn:hover, .window-controls span:hover {
+                transform: none;
+            }
+            
+            .action-btn:active, .window-controls span:active {
+                transform: scale(0.95);
+            }
+            
+            .data-table tbody tr:hover {
+                background: rgba(255, 255, 255, 0.02);
+                transform: none;
+            }
+            
+            .data-table tbody tr:active {
+                background: rgba(0, 188, 212, 0.1);
+            }
+        }
+
+        /* Suporte para Telas de Alta Densidade */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .action-btn {
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            }
+            
+            .action-btn:hover {
+                box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        /* Indicador de Scroll Horizontal para Tabelas */
+        .table-scroll-indicator {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            background: rgba(0, 188, 212, 0.8);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 10px;
+            z-index: 5;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .table-scroll-indicator {
+                display: block;
+            }
         }
     </style>
 </head>
 <body>
 
     <div class="window-container">       
-        
         <div class="window-header">
             <div>
                 Sistema KalpaQuestion - Consulta Responsáveis - Colaborador
@@ -544,6 +954,9 @@
             </div>
             
             <div class="data-grid-container">
+                <div class="table-scroll-indicator">
+                    <i class="fas fa-arrows-left-right"></i> Arraste
+                </div>
                 <table class="data-table">
                     <thead>
                         <tr>
@@ -770,6 +1183,35 @@
             document.getElementById('close-btn').addEventListener('click', function() {
                 voltarParaMenu();
             });
+
+            // Adiciona botão de voltar ao menu
+            const menuBtn = document.createElement('button');
+            menuBtn.className = 'menu-btn';
+            menuBtn.innerHTML = '<i class="fas fa-arrow-left"></i> Voltar ao Menu';
+            menuBtn.onclick = voltarParaMenu;
+            document.querySelector('.window-header').prepend(menuBtn);
+
+            // Ajusta layout responsivo dinamicamente
+            function ajustarLayoutResponsivo() {
+                const width = window.innerWidth;
+                const tabela = document.querySelector('.data-table');
+                
+                if (width <= 600) {
+                    // Esconde colunas em telas pequenas
+                    document.querySelectorAll('.data-table th:nth-child(1), .data-table td:nth-child(1)').forEach(el => {
+                        el.style.display = 'none';
+                    });
+                } else {
+                    // Mostra todas as colunas em telas maiores
+                    document.querySelectorAll('.data-table th, .data-table td').forEach(el => {
+                        el.style.display = '';
+                    });
+                }
+            }
+
+            // Executa na inicialização e no redimensionamento
+            ajustarLayoutResponsivo();
+            window.addEventListener('resize', ajustarLayoutResponsivo);
         });
     </script>
 </body>
