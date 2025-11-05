@@ -90,6 +90,7 @@
             padding: 40px 20px;
             margin: 0 auto; 
             width: 100%;
+            max-width: 1200px;
         }
         
         .welcome-section {
@@ -115,9 +116,8 @@
             display: flex;
             justify-content: center;
             gap: 30px;
-            flex-wrap: nowrap;
-            width: max-content; 
-            min-width: 100%;
+            flex-wrap: wrap;
+            width: 100%;
         }
         
         .nav-card {
@@ -131,6 +131,7 @@
             transition: all 0.3s ease;
             cursor: pointer;
             border: 2px solid transparent;
+            position: relative;
         }
         
         .nav-card:hover {
@@ -188,38 +189,6 @@
             margin-top: auto;
         }
         
-        /* Responsividade */
-        @media (max-width: 1024px) { 
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .user-info {
-                margin-top: 15px;
-            }
-            
-            .main-content {
-                max-width: none;
-                align-items: flex-start; 
-            }
-            
-            .nav-menu {
-                justify-content: flex-start; 
-                width: max-content;
-                min-width: 100%;
-            }
-            
-            .nav-card {
-                 min-width: 220px; 
-                 width: 220px; 
-            }
-            
-            .welcome-section h2 {
-                font-size: 1.8rem;
-            }
-        }
-
         /* Efeitos adicionais para um visual mais moderno */
         .nav-card::before {
             content: '';
@@ -260,6 +229,279 @@
             }
             100% {
                 transform: translateX(100%);
+            }
+        }
+
+        /* =========================================== */
+        /* RESPONSIVIDADE PARA DISPOSITIVOS MÓVEIS */
+        /* =========================================== */
+
+        /* Tablets (768px a 1024px) */
+        @media (max-width: 1024px) {
+            .header {
+                padding: 15px 20px;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .user-info {
+                margin-top: 0;
+            }
+            
+            .main-content {
+                padding: 30px 15px;
+            }
+            
+            .welcome-section {
+                margin-bottom: 40px;
+            }
+            
+            .welcome-section h2 {
+                font-size: 1.8rem;
+            }
+            
+            .welcome-section p {
+                font-size: 1rem;
+            }
+            
+            .nav-menu {
+                gap: 20px;
+            }
+            
+            .nav-card {
+                width: calc(50% - 20px);
+                min-width: 220px;
+                padding: 25px 20px;
+            }
+        }
+
+        /* Smartphones grandes (576px a 768px) */
+        @media (max-width: 768px) {
+            .header {
+                padding: 12px 15px;
+            }
+            
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+            
+            .user-avatar {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+            
+            .main-content {
+                padding: 25px 10px;
+            }
+            
+            .welcome-section {
+                margin-bottom: 30px;
+            }
+            
+            .welcome-section h2 {
+                font-size: 1.6rem;
+            }
+            
+            .welcome-section p {
+                font-size: 0.95rem;
+            }
+            
+            .nav-menu {
+                gap: 15px;
+            }
+            
+            .nav-card {
+                width: 100%;
+                max-width: 300px;
+                padding: 20px 15px;
+            }
+            
+            .nav-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+                margin-bottom: 15px;
+            }
+            
+            .nav-card h3 {
+                font-size: 1.2rem;
+            }
+            
+            .nav-card p {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Smartphones pequenos (até 576px) */
+        @media (max-width: 576px) {
+            .header {
+                padding: 10px 12px;
+            }
+            
+            .logo h1 {
+                font-size: 1.3rem;
+            }
+            
+            .user-info {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .user-avatar {
+                margin-right: 0;
+            }
+            
+            .main-content {
+                padding: 20px 8px;
+            }
+            
+            .welcome-section {
+                margin-bottom: 25px;
+            }
+            
+            .welcome-section h2 {
+                font-size: 1.4rem;
+            }
+            
+            .welcome-section p {
+                font-size: 0.9rem;
+                line-height: 1.6;
+            }
+            
+            .nav-menu {
+                gap: 12px;
+            }
+            
+            .nav-card {
+                padding: 18px 12px;
+                border-radius: 8px;
+            }
+            
+            .nav-icon {
+                width: 55px;
+                height: 55px;
+                font-size: 1.3rem;
+                margin-bottom: 12px;
+            }
+            
+            .nav-card h3 {
+                font-size: 1.1rem;
+                margin-bottom: 8px;
+            }
+            
+            .nav-card p {
+                font-size: 0.85rem;
+                line-height: 1.4;
+            }
+            
+            .footer {
+                padding: 15px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Dispositivos muito pequenos (até 360px) */
+        @media (max-width: 360px) {
+            .header {
+                padding: 8px 10px;
+            }
+            
+            .logo h1 {
+                font-size: 1.2rem;
+            }
+            
+            .main-content {
+                padding: 15px 5px;
+            }
+            
+            .welcome-section h2 {
+                font-size: 1.3rem;
+            }
+            
+            .welcome-section p {
+                font-size: 0.85rem;
+            }
+            
+            .nav-card {
+                padding: 15px 10px;
+            }
+            
+            .nav-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+            
+            .nav-card h3 {
+                font-size: 1rem;
+            }
+            
+            .nav-card p {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Ajustes para orientação paisagem em dispositivos móveis */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .header {
+                padding: 8px 15px;
+            }
+            
+            .main-content {
+                padding: 15px 10px;
+            }
+            
+            .welcome-section {
+                margin-bottom: 20px;
+            }
+            
+            .welcome-section h2 {
+                font-size: 1.4rem;
+            }
+            
+            .nav-menu {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            
+            .nav-card {
+                width: calc(50% - 10px);
+                padding: 15px 10px;
+            }
+            
+            .nav-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
+                margin-bottom: 10px;
+            }
+        }
+
+        /* Melhorias de acessibilidade para toque */
+        @media (hover: none) {
+            .nav-card:hover {
+                transform: none;
+            }
+            
+            .nav-card:active {
+                transform: scale(0.98);
+                box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        /* Suporte para dispositivos com telas de alta densidade */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .nav-card {
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-card:hover {
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
             }
         }
     </style>
